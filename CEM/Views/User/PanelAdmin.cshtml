@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "PanelAdmin";
+    Layout = "~/Views/Shared/MasterPageAmplio.cshtml";
+}
+
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
+<script src="~/Scripts/js/jsTabs.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#TUsuarios').DataTable({
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ Registros",
+                "sZeroRecords": "&nbsp;",
+                "sEmptyTable": "&nbsp;",
+                "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                "sInfoFiltered": "",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+        });
+    function Borrar(id,bd) {
+        var txt;
+        var r = confirm("Seguro que quiere borrar este registro");
+
+
+    }
+</script>
+
+<center>
+    <h2>PanelUsuario</h2>
+
+    <p>Seleccione la tablas a ver</p>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Mensajes')">Mensajes</button>
+        <button class="tablinks" onclick="openCity(event, 'Noticias')">Noticias</button>
+        <button class="tablinks" onclick="openCity(event, 'Usuarios')">Usuarios</button>
+        <button class="tablinks" onclick="openCity(event, 'Productos')">Productos</button>
+        <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
+    </div>
+</center>
+<!-- Tab content -->
+<div id="Usuarios" class="tabcontent">
+    <h3>Usuarios</h3>
+    <a href="">
+        <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
+    </a>
+    <table id="TUsuarios" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>ID</th>
+                <th>Username</th>
+                <th>Pasword</th>
+                <th>Primer nombre</th>
+                <th>Segundo nombre</th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+                <th>Email</th>
+                <th>Celular</th>
+                <th>Fono fijo</th>
+                <th>tipo usuario</th>
+                <th>alumno regular</th>
+                <th>Carrera</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        @{
+            List<Negocio.ClasesModelo.Usuario> lista = new Negocio.OperacionesUsuarios().TraerTodo();
+            foreach (Negocio.ClasesModelo.Usuario user in lista)
+            {
+
+                if (user.Snombre == null) { user.Snombre = "no tiene"; }
+                <tr>
+                    <th>@user.IdUsuario</th>
+                    <th>@user.Username</th>
+                    <th>@user.Password</th>
+                    <th>@user.Pnombre</th>
+                    <th>@user.Snombre</th>
+                    <th>@user.Appat</th>
+                    <th>@user.Apmat</th>
+                    <th>@user.Email</th>
+                    <th>@user.FonoCelular</th>
+                    <th>@user.FonoFijo</th>
+                    <th>@user.TipoUsuario</th>
+                    <th>@user.AlumnoRegular</th>
+                    <th>@user.IdCarrera</th>
+                    <th><a href=""> <img src="~/Scripts/images/delete.png" /></a>  <a href=""><img src="~/Scripts/images/edit.png" /></a></th>
+                </tr>
+            }
+        }
+
+
+    </table>
+</div>
+
+<div id="Mensajes" class="tabcontent">
+    
+</div>
+
+
+
