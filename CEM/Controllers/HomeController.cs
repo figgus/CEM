@@ -75,7 +75,10 @@ namespace CEM.Controllers
             }
 
             user.AlumnoRegular = 1;
-            user.IdCarrera = 3;
+            //user.IdCarrera = 3;
+            
+            user.IdCarrera = int.Parse(Request["carrera"]);
+
             new OperacionesUsuarios().Insertar(user);
             res = "true";
             return Json(res);

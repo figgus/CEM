@@ -359,6 +359,7 @@
     <Content Include="Views\Home\Registro.cshtml" />
     <Content Include="Views\Shared\MasterPageAmplio.cshtml" />
     <Content Include="Views\User\PanelAdmin.cshtml" />
+    <Content Include="Views\User\AgregarUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

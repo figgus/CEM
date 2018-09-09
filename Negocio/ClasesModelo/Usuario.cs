@@ -25,6 +25,8 @@ namespace Negocio.ClasesModelo
         {
         }
 
+
+
         public Usuario(int idUsario, string username, string password, string pnombre, string snombre, string appat, string apmat, string email, string fonoCelular, string fonoFijo, int tipoUsuario, int alumnoRegular, int idCarrera)
         {
             this.IdUsuario = idUsario;
@@ -42,7 +44,11 @@ namespace Negocio.ClasesModelo
             this.IdCarrera = idCarrera;
         }
 
-        public int IdCarrera { get; set; }
+
+
+
+
+        public int? IdCarrera { get; set; }
         public int IdUsuario { get => idUsario; set => idUsario = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }

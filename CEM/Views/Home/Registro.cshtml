@@ -79,7 +79,15 @@
     <br />
 
     <select id="carrera" name="carrera" class="form-control">
-        <option>Ingenieria en informatica</option>
+        <option value="22">Ninguna</option>
+        @{
+                                Negocio.OperacionesCarrera opcar = new Negocio.OperacionesCarrera();
+                                List<Negocio.ClasesModelo.Carrera> lista = opcar.TraerTodo();
+                                foreach (Negocio.ClasesModelo.Carrera car in lista)
+                                {
+                                    <option value="@car.idCarrera">@car.nombreCarrera</option>
+                                }
+                            }
     </select>
     <br />
     <center>

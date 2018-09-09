@@ -26,6 +26,17 @@ namespace Negocio
             return true;
         }
 
+        public bool Insertar2(Usuario user)
+        {
+            bool res = false;
+            //string sql = string.Format("begin USUARIOINSERT(('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})); end;",
+            //    user.Username, user.Password, user.Pnombre, user.Snombre, user.Appat, user.Apmat, user.Email, user.FonoCelular, user.FonoFijo, user.TipoUsuario, user.AlumnoRegular, user.IdCarrera);
+            string sql = "begin USUARIOINSERT('" + user.Username + "','" + user.Password + "','" + user.Pnombre + "','" + user.Snombre + "','" + user.Appat + "','" + user.Apmat + "','" + user.Email + "','" + user.FonoCelular + "','" + user.FonoFijo + "'," + user.TipoUsuario + "," + user.AlumnoRegular + "," + user.IdCarrera + "); end;";
+            this.ConexionOracle.Ejecutar(sql);
+            res = true;
+            return res;
+        }
+
         public List<Usuario> TraerTodo()
         {
             List<Usuario> res = new List<Usuario>();
@@ -50,9 +61,13 @@ namespace Negocio
             }
             return res;
         }
-        public bool Borrar()
+        public bool Borrar(int idUsu)
         {
-            return true;
+            bool res= false;
+            string sql = "begin USUARIODELETE(" + idUsu + "); end;";
+            ConexionOracle.Ejecutar(sql);
+            res = true;
+            return res;
         }
 
         public bool Actualizar()

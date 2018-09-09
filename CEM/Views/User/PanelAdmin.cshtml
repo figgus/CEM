@@ -10,6 +10,7 @@
 <script src="~/Scripts/js/jsTabs.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#msjExito").hide();
         $('#TUsuarios').DataTable({
             language: {
                 "sProcessing": "Procesando...",
@@ -37,12 +38,33 @@
             },
             aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
         });
-    function Borrar(id,bd) {
+    });
+
+    function BorrarUsuario(id) {
         var txt;
-        var r = confirm("Seguro que quiere borrar este registro");
-
-
-    }
+        var r = confirm("Seguro que quiere borrar este usuario");
+        
+        if (r == true) {
+            var parms = { 'idBorrar': id };
+            $.ajax({
+                        url: '@Url.Action("BorrarUsuario", "User")',
+                        type: 'POST',
+                        data: parms,
+                        success: function (result) {
+                            //alert(result);
+                            if (result === 'true') {
+                                $("#msjExito").show(2000).delay(2000).fadeOut(2000);
+                                $("#TUsuarios").load(location.href + " #TUsuarios>*", "");
+                            }
+                            
+                            else {
+                                $("#msj").show(2000).delay(2000).fadeOut(2000);
+                            }
+                        }
+                    }
+                    );
+        } 
+}
 </script>
 
 <center>
@@ -61,8 +83,11 @@
 </center>
 <!-- Tab content -->
 <div id="Usuarios" class="tabcontent">
+    <div class="alert alert-success" id="msjExito">
+        Usuario eliminado con exito
+    </div>
     <h3>Usuarios</h3>
-    <a href="">
+    <a href="@Url.Action("AgregarUsuario","User")">
         <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
     </a>
     <table id="TUsuarios" style="width:100%">
@@ -106,7 +131,7 @@
                     <th>@user.TipoUsuario</th>
                     <th>@user.AlumnoRegular</th>
                     <th>@user.IdCarrera</th>
-                    <th><a href=""> <img src="~/Scripts/images/delete.png" /></a>  <a href=""><img src="~/Scripts/images/edit.png" /></a></th>
+                    <th><a href="javascript:void(0)" onclick="BorrarUsuario(@user.IdUsuario)"> <img src="~/Scripts/images/delete.png" /></a>  <a href=""><img src="~/Scripts/images/edit.png" /></a></th>
                 </tr>
             }
         }

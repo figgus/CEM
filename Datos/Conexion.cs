@@ -27,5 +27,27 @@ namespace Datos
             dr.Fill(dt);
             return dt;
         }
+
+        //public DataTable EjecutarSP(string nombreSP)
+        //{
+        //    //GIVE PROCEDURE NAME
+        //    OracleConnection con = new OracleConnection(this.ConnectionString);
+        //    OracleCommand cmd;
+        //    cmd = new OracleCommand("PROCEDURE_NAME", con);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+
+        //    //ASSIGN PARAMETERS TO BE PASSED
+        //    cmd.Parameters.Add("PARAM1", OracleDbType.Varchar2).Value = VAL1;
+        //    cmd.Parameters.Add("PARAM2", OracleDbType.Varchar2).Value = VAL2;
+
+        //    //CALL PROCEDURE
+        //    con.Open();
+        //    OracleDataAdapter da = new OracleDataAdapter(cmd);
+        //    cmd.ExecuteNonQuery();
+            
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    return dt;
+        //}
     }
 }

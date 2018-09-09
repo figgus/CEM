@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClasesModelo\Antecedente.cs" />
+    <Compile Include="ClasesModelo\Carrera.cs" />
+    <Compile Include="ClasesModelo\Institucion.cs" />
+    <Compile Include="ClasesModelo\Nota.cs" />
+    <Compile Include="ClasesModelo\Postulante.cs" />
+    <Compile Include="ClasesModelo\ProgramaEstudio.cs" />
+    <Compile Include="ClasesModelo\RelacionAlumnoFamilia.cs" />
+    <Compile Include="ClasesModelo\TipoUsuario.cs" />
     <Compile Include="ClasesModelo\Usuario.cs" />
+    <Compile Include="OperacionesCarrera.cs" />
+    <Compile Include="OperacionesTipoUsuario.cs" />
     <Compile Include="OperacionesUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
