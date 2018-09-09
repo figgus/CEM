@@ -54,7 +54,7 @@ namespace Negocio
                 user.Email = row["Email"].ToString();
                 user.FonoCelular = row["FonoCelular"].ToString();
                 user.FonoFijo= row["FonoFijo"].ToString();
-                user.TipoUsuario = int.Parse(row["idUsuario"].ToString());
+                user.TipoUsuario = int.Parse(row["tipoUsuario"].ToString());
                 user.AlumnoRegular = int.Parse(row["AlumnoRegular"].ToString());
                 user.IdCarrera = int.Parse(row["idUsuario"].ToString());
                 res.Add(user);
@@ -70,9 +70,13 @@ namespace Negocio
             return res;
         }
 
-        public bool Actualizar()
+        public bool Actualizar(Usuario user)
         {
-            return true;
+            bool res = false;
+            string sql = "begin USUARIOUPDATE("+user.IdUsuario+",'" + user.Username + "','" + user.Password + "','" + user.Pnombre + "','" + user.Snombre + "','" + user.Appat + "','" + user.Apmat + "','" + user.Email + "','" + user.FonoCelular + "','" + user.FonoFijo + "'," + user.TipoUsuario + "," + user.AlumnoRegular + "," + user.IdCarrera + "); end;";
+            this.ConexionOracle.Ejecutar(sql);
+            res = true;
+            return res;
         }
     }
 }

@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "EditarUsuario";
+    Layout = "~/Views/Shared/MasterPageAmplio.cshtml";
+}
+<script>
+    $(document).ready(
+        function () {
+            
+
+            $("#msj").hide();
+            $("#SEstado").hide();
+            $("#SCarrera").hide();
+            $("#btnGuardar").click(
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("ActualizarUsuarioPanel", "User")',
+                        type: 'POST',
+                        data: $("#formulario").serialize(),
+                        success: function (result) {
+                            //alert(result);
+                            if (result === 'true') {
+                                $("#msj").show(2000).delay(2000).fadeOut(2000);
+                                setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
+                            }
+                            else {
+                                alert('problema');
+                            }
+                        }
+                    }
+                    );
+                }
+
+            );
+        }
+    );
+
+
+    function AlumnoSelected() {
+        //alert(document.getElementById('tipoUsuario').value);
+        if (document.getElementById('tipoUsuario').value == "2") {
+            //alert('entro');
+            $("#SEstado").show();
+            $("#SCarrera").show();
+        }
+        else {
+            $("#SEstado").hide();
+            $("#SCarrera").hide();
+        }
+    }
+</script>
+<body>
+    <div id="msj" class="alert alert-success">
+        Usuario editado con exito
+    </div>
+    <center>
+        <h2>EditarUsuario</h2>
+        <form id="formulario">
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        Tipo de usuario
+                    </td>
+                    <td>
+                        <select onchange="AlumnoSelected()" id="tipoUsuario" name="tipoUsuario" class="form-control">
+                            <option value="">--</option>
+                            @{
+                                Negocio.OperacionesTipoUsuario optipo = new Negocio.OperacionesTipoUsuario();
+                                List<Negocio.ClasesModelo.TipoUsuario> listaTipos = optipo.TraerTodo();
+                                foreach (Negocio.ClasesModelo.TipoUsuario car in listaTipos)
+                                {
+                                    <option value="@car.idTipoUsuario">@car.nombreTipo</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>ID</td>
+                    <td><input class="form-control" type="text" id="id" name="id" value="@Request["id"]" readonly /></td>
+                </tr>
+                <tr>
+
+                    <td>nombre de usuario</td>
+                    <td><input class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" value="@Request["user"]" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        password
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="password" name="password" value="@Request["pass"]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        primer nombre
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="pnombre" name="pnombre" value="@Request["pnom"]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        segundo nombre
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="snombre" name="snombre" value="@Request["snom"]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        apellido paterno
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="apat" name="apat" value="@Request["apat"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        apellido materno
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="amat" name="amat" value="@Request["amat"]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="email" name="email" value="@Request["email"]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Fono movil
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="movil" name="movil" value="@Request["movil"]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Fono fijo (opcional)
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="fijo" name="fijo" value="@Request["fijo"]"/>
+                    </td>
+                </tr>
+
+                <tr id="SEstado">
+                    <td>
+                        Estado alumno
+                    </td>
+                    <td>
+                        <select class="form-control" type="text" id="estado" name="estado" value="@Request["aregu"]">
+                            <option value="1">Regular</option>
+                            <option value="0">No regular</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="SCarrera">
+                    <td>
+                        Carrera
+                    </td>
+                    <td>
+
+                        <select id="idcarrera" name="idcarrera" class="form-control">
+                            <option selected value="">Seleccione una carrera</option>
+                            @{
+                                Negocio.OperacionesCarrera opcar = new Negocio.OperacionesCarrera();
+                                List<Negocio.ClasesModelo.Carrera> lista = opcar.TraerTodo();
+                                foreach (Negocio.ClasesModelo.Carrera car in lista)
+                                {
+                                    <option value="@car.idCarrera">@car.nombreCarrera</option>
+                                }
+                            }
+
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="button" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Guardar" /></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+
+<script>
+    var numeroS = document.getElementById("tipoUsuario").length;
+         
+    for (i = 0; i < numeroS; i++) {
+        //alert($("#tipoUsuario").val(i).val());
+        if ($("#tipoUsuario").val(i).val() ==@Request["tipo"].ToString()) {
+            alert('entro');
+            //$("#tipoUsuario").val(i).change();
+        }
+    }
+</script>
+

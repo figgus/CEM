@@ -50,6 +50,7 @@
     <Compile Include="ClasesModelo\TipoUsuario.cs" />
     <Compile Include="ClasesModelo\Usuario.cs" />
     <Compile Include="OperacionesCarrera.cs" />
+    <Compile Include="OperacionesInstitucion.cs" />
     <Compile Include="OperacionesTipoUsuario.cs" />
     <Compile Include="OperacionesUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

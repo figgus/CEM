@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Negocio.ClasesModelo
 {
-    class Institucion
+    public class Institucion
     {
+        public int? idInstitucion { get; set; }
+        public string nomInstitucion{ get; set; }
     }
 }

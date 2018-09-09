@@ -38,6 +38,34 @@
             },
             aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
         });
+
+        $('#TCentros').DataTable({
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ Registros",
+                "sZeroRecords": "&nbsp;",
+                "sEmptyTable": "&nbsp;",
+                "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                "sInfoFiltered": "",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+        });
     });
 
     function BorrarUsuario(id) {
@@ -74,20 +102,21 @@
 
 
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Mensajes')">Mensajes</button>
-        <button class="tablinks" onclick="openCity(event, 'Noticias')">Noticias</button>
+        <button class="tablinks" onclick="openCity(event, 'Centros')">Centros</button>
+        <button class="tablinks" onclick="openCity(event, 'PDE')">Programas de estudios</button>
         <button class="tablinks" onclick="openCity(event, 'Usuarios')">Usuarios</button>
         <button class="tablinks" onclick="openCity(event, 'Productos')">Productos</button>
         <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
     </div>
 </center>
 <!-- Tab content -->
+<div class="alert alert-success" id="msjExito">
+    Usuario eliminado con exito
+</div>
 <div id="Usuarios" class="tabcontent">
-    <div class="alert alert-success" id="msjExito">
-        Usuario eliminado con exito
-    </div>
+    
     <h3>Usuarios</h3>
-    <a href="@Url.Action("AgregarUsuario","User")">
+    <a href="@Url.Action("AgregarUsuario", "User")">
         <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
     </a>
     <table id="TUsuarios" style="width:100%">
@@ -131,10 +160,78 @@
                     <th>@user.TipoUsuario</th>
                     <th>@user.AlumnoRegular</th>
                     <th>@user.IdCarrera</th>
-                    <th><a href="javascript:void(0)" onclick="BorrarUsuario(@user.IdUsuario)"> <img src="~/Scripts/images/delete.png" /></a>  <a href=""><img src="~/Scripts/images/edit.png" /></a></th>
+                    <th><a href="javascript:void(0)" onclick="BorrarUsuario(@user.IdUsuario)"> <img src="~/Scripts/images/delete.png" /></a>
+                    <a href="@Url.Action("EditarUsuario", "User")?id=@user.IdUsuario&user=@user.Username&pass=@user.Password&pnom=@user.Pnombre&snom=@user.Snombre&apat=@user.Appat&amat=@user.Apmat&email=@user.Email&movil=@user.FonoCelular&fijo=@user.FonoFijo&tipo=@user.TipoUsuario&aregu=@user.AlumnoRegular&carrera=@user.IdCarrera"><img src="~/Scripts/images/edit.png" /></a></th>
                 </tr>
             }
         }
+
+
+    </table>
+</div>
+
+<div id="Centros" class="tabcontent">
+    <h3>Usuarios</h3>
+    <a href="@Url.Action("AgregarCentro", "User")">
+        <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
+    </a>
+    <table id="TCentros" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>ID</th>
+                <th>Nombre centro</th>
+                
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        
+            @{
+                List<Negocio.ClasesModelo.Institucion> listaCentros = new Negocio.OperacionesInstitucion().TraerTodo();
+                foreach (Negocio.ClasesModelo.Institucion insti in listaCentros)
+                {
+        <tr>
+            <th>@insti.idInstitucion</th>
+            <th>@insti.nomInstitucion</th>
+        </tr>
+                }
+
+                
+
+            }
+        
+
+    </table>
+</div>
+
+<div id="PDE" class="tabcontent">
+    <h3>Usuarios</h3>
+    <a href="@Url.Action("AgregarCentro", "User")">
+        <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
+    </a>
+    <table id="TPDE" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>ID</th>
+                <th>Nombre programa</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
+                <th>Cupos</th>
+                <th>idCentro</th>
+                <th>Tipo Periodo</th>
+                <th>Area</th>
+                <th>Requisitos</th>
+                <th>Costos</th>
+                <th>Publicado</th>
+                <th>Fecha publicacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tr>
+
+        </tr>
 
 
     </table>
