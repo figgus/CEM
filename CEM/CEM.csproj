@@ -255,6 +255,7 @@
     <Content Include="Scripts\images\partner_6.png" />
     <Content Include="Scripts\images\play.png" />
     <Content Include="Scripts\images\play_big.png" />
+    <Content Include="Scripts\images\publicar.png" />
     <Content Include="Scripts\images\teacher.jpg" />
     <Content Include="Scripts\images\team_1.jpg" />
     <Content Include="Scripts\images\team_2.jpg" />
@@ -362,9 +363,11 @@
     <Content Include="Views\User\AgregarUsuario.cshtml" />
     <Content Include="Views\User\EditarUsuario.cshtml" />
     <Content Include="Views\User\AgregarCentro.cshtml" />
+    <Content Include="Views\User\AgregarPrograma.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\images\Programas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "AgregarPrograma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<script>
+    @*$(document).ready(
+        function () {
+            $("#msj").hide();
+            $("#btnGuardar").click(
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("CrearPrograma", "User")',
+                        type: 'POST',
+                        data: $("#formulario").serialize(),
+                        success: function (result) {
+                            //alert(result);
+                            if (result === 'true') {
+                                $("#msj").show(2000).delay(2000).fadeOut(2000);
+                                setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
+                            }
+                            else {
+                                alert('problema');
+                            }
+                        }
+                    }
+                    );
+                }
+
+            );
+        }
+    );*@
+
+
+</script>
+
+<body>
+    
+    <div id="msj" class="alert alert-success">
+        Usuario registrado con exito
+    </div>
+    <center>
+        <h2>Agregar Programa</h2>
+        <form id="formulario" action="@Url.Action("CrearPrograma", "User")" method="post">
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+
+                    <td>Nombre del programa</td>
+                    <td><input class="form-control" type="text" id="nombre" name="nombre" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        Descripcion
+                    </td>
+                    <td>
+                        <textarea class="form-control" id="Desc" name="Desc"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Ruta imagen (opcional)
+                    </td>
+                    <td>
+                        <input  type="file" id="Ruta" name="Ruta" />
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        Numero de cupos
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" id="cupos" name="cupos" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Tipo de periodo
+                    </td>
+                    <td>
+                        <select class="form-control" id="periodo" name="periodo">
+                            <option value="Normal">Normal</option>
+                            <option value="Verano">Verano</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Area
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="Area" name="Area" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Requisitos
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="Requisitos" name="Requisitos" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Costo incluido
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" id="Costo" name="Costo" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Crear Programa" /></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+
+

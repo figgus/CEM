@@ -114,7 +114,6 @@
     Usuario eliminado con exito
 </div>
 <div id="Usuarios" class="tabcontent">
-    
     <h3>Usuarios</h3>
     <a href="@Url.Action("AgregarUsuario", "User")">
         <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
@@ -175,13 +174,11 @@
     <a href="@Url.Action("AgregarCentro", "User")">
         <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
     </a>
-    <table id="TCentros" style="width:100%">
+    <table id="TCentros"  style="width:100%">
         <thead>
             <tr>
-
                 <th>ID</th>
                 <th>Nombre centro</th>
-                
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -195,17 +192,12 @@
             <th>@insti.nomInstitucion</th>
         </tr>
                 }
-
-                
-
             }
-        
-
     </table>
 </div>
 
 <div id="PDE" class="tabcontent">
-    <h3>Usuarios</h3>
+    <h3>Programas de estudio</h3>
     <a href="@Url.Action("AgregarCentro", "User")">
         <img src="~/Scripts/images/toggle01.png" /> agregar nuevo registro
     </a>
@@ -229,12 +221,35 @@
             </tr>
         </thead>
 
+
+        @{
+            Negocio.OperacionesProgramasEstudios opprog = new Negocio.OperacionesProgramasEstudios();
+            List<Negocio.ProgramaEstudios> res = opprog.TraerTodo();
+            foreach (Negocio.ProgramaEstudios pro in res)
+            {
         <tr>
-
+            <th>@pro.IDPROGRAMAESTUDIO</th>
+            <th>@pro.NOMBREPROGRAMA</th>
+            <th>@pro.DESCRIPCION</th>
+            <th>@pro.IMAGEN</th>
+            <th>@pro.CUPOS</th>
+            <th>@pro.IDCENTRO</th>
+            <th>@pro.TIPOPERIODO</th>
+            <th>@pro.AREAESCUELA</th>
+            <th>@pro.REQUISITOS</th>
+            <th>@pro.COSTOINCLUIDO</th>
+            <th>@pro.PUBLICADO</th>
+            <th>@pro.FECHAPUBLICACION </th>
+            <th>@pro.FECHAPUBLICACION</th>
+            <th><a> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a></th>
         </tr>
+                    }
+                    }
+
+                
 
 
-    </table>
+            </table>
 </div>
 
 <div id="Mensajes" class="tabcontent">

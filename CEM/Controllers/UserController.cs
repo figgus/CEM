@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -32,6 +33,11 @@ namespace CEM.Controllers
         }
 
         public ActionResult AgregarCentro()
+        {
+            return View();
+        }
+
+        public ActionResult AgregarPrograma()
         {
             return View();
         }
@@ -123,6 +129,43 @@ namespace CEM.Controllers
             return Json(res);
         }
 
+        [HttpPost]
+        public ActionResult CrearPrograma()
+        {
+            string res = "false";
+            ProgramaEstudios programa = new ProgramaEstudios();
+            programa.NOMBREPROGRAMA = Request["nombre"].ToString();
+            programa.DESCRIPCION = Request["Desc"];
+            var a = Request.Files;
+            if (a!=null)
+            {
+                var file = Request.Files[0];
+                var path = Path.Combine(Server.MapPath("~/Scripts/images/Programas/"),file.FileName);
+                file.SaveAs(path);
+                programa.IMAGEN = file.FileName;
+            }
+            
 
+            programa.CUPOS= int.Parse( Request["cupos"]);
+            programa.TIPOPERIODO= Request["periodo"];
+            programa.AREAESCUELA= Request["Area"];
+            programa.REQUISITOS= Request["Requisitos"];
+            programa.COSTOINCLUIDO = Request["Costo"];
+
+
+
+            OperacionesProgramasEstudios opro = new OperacionesProgramasEstudios();
+            opro.Insertar(programa);
+            res = "true";
+            return Json(res);
+        }
+
+        [HttpPost]
+        public JsonResult PublicarPrograma(int idPrograma)
+        {
+            string res = "false";
+
+            return Json(res);
+        }
     }
 }
