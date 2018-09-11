@@ -8,65 +8,9 @@
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
 <script src="~/Scripts/js/jsTabs.js"></script>
+<script src="~/Scripts/js/jsDataTableAdmin.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#msjExito").hide();
-        $('#TUsuarios').DataTable({
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ Registros",
-                "sZeroRecords": "&nbsp;",
-                "sEmptyTable": "&nbsp;",
-                "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
-                "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
-                "sInfoFiltered": "",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            },
-            aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
-        });
-
-        $('#TCentros').DataTable({
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ Registros",
-                "sZeroRecords": "&nbsp;",
-                "sEmptyTable": "&nbsp;",
-                "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
-                "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
-                "sInfoFiltered": "",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            },
-            aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
-        });
-    });
+    
 
     function BorrarUsuario(id) {
         var txt;
@@ -92,7 +36,30 @@
                     }
                     );
         } 
-}
+    }
+
+
+    function publicar(id) {
+        var parms = { 'idPrograma': id };
+            $.ajax({
+                  url: '@Url.Action("PublicarPrograma", "User")',
+                  type: 'POST',
+                  data: parms,
+                  success: function (result) {
+                      //alert(result);
+                      if (result === 'true') {
+                          $("#msjExito").show(2000).delay(2000).fadeOut(2000);
+                          $("#TPDE").load(location.href + " #TPDE>*", "");
+                          $("#msjExito").html("Programa de estudios publicado con exito");
+                      }
+                      
+                      else {
+                          $("#msj").show(2000).delay(2000).fadeOut(2000);
+                      }
+                  }
+            }
+            );
+    }
 </script>
 
 <center>
@@ -204,7 +171,6 @@
     <table id="TPDE" style="width:100%">
         <thead>
             <tr>
-
                 <th>ID</th>
                 <th>Nombre programa</th>
                 <th>Descripcion</th>
@@ -240,15 +206,10 @@
             <th>@pro.COSTOINCLUIDO</th>
             <th>@pro.PUBLICADO</th>
             <th>@pro.FECHAPUBLICACION </th>
-            <th>@pro.FECHAPUBLICACION</th>
-            <th><a> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a></th>
+            <th><a href="javascript:void(0)" onclick="publicar(@pro.IDPROGRAMAESTUDIO)"> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a></th>
         </tr>
                     }
                     }
-
-                
-
-
             </table>
 </div>
 

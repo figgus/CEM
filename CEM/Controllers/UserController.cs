@@ -42,6 +42,26 @@ namespace CEM.Controllers
             return View();
         }
 
+        public ActionResult PanelAlumno()
+        {
+            return View();
+        }
+
+        public ActionResult PanelCEL()
+        {
+            return View();
+        }
+
+        public ActionResult PanelCEM()
+        {
+            return View();
+        }
+
+        public ActionResult PanelFamilia()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult BorrarUsuario(int idBorrar)
         {
@@ -164,7 +184,8 @@ namespace CEM.Controllers
         public JsonResult PublicarPrograma(int idPrograma)
         {
             string res = "false";
-
+            new OperacionesProgramasEstudios().Publicar(idPrograma);
+            res = "true";
             return Json(res);
         }
     }

@@ -17,13 +17,22 @@
                         type: 'POST',
                         data: $("#formulario").serialize(),
                         success: function (result) {
-                            //alert(result);
-                            if (result === 'true') {
+                            alert(result);
+                            if (result === 'true1') {
                                 window.location.href = "/user/panelAdmin";
                             }
-                            //else if (result==='true') {
-                            //    window.location.href = "/Tienda/Tienda";
-                            //}
+                            else if (result==='true2') {
+                                window.location.href = "/user/panelAlumno";
+                            }
+                            else if (result === 'true3') {
+                                window.location.href = "/user/panelCEM";
+                            }
+                            else if (result === 'true4') {
+                                window.location.href = "/user/panelCEL";
+                            }
+                            else if (result === 'true5') {
+                                window.location.href = "/user/panelFamilia";
+                            }
                             else {
                                 $("#msj").show(2000).delay(2000).fadeOut(2000);
                             }

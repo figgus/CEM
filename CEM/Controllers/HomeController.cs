@@ -26,7 +26,10 @@ namespace CEM.Controllers
             return View();
         }
 
-       
+        public ActionResult Programas()
+        {
+            return View();
+        }
 
         [HttpPost]
         public string IngresoCredenciales()
@@ -39,7 +42,7 @@ namespace CEM.Controllers
             {
                 if (usu.Username==user && usu.Password==usu.Password)
                 {
-                    return "true";
+                    return "true"+usu.TipoUsuario;
                 }
             }
             return res;

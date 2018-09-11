@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "PanelAlumno";
+    Layout = "~/Views/Shared/MasterPageAmplio.cshtml";
+}
+
+
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
+<script src="~/Scripts/js/jsTabs.js"></script>
+<script type="text/javascript">
+     $(document).ready(
+        function () {
+            $("#msjExito").hide();
+        }
+);
+
+    
+
+
+    
+</script>
+
+<center>
+    <h2>PanelAlumno</h2>
+
+    <p>Seleccione la accion a realizar</p>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Centros')">Ver notas</button>
+        <button class="tablinks" onclick="openCity(event, 'Programas')">Ver programas de estudios</button>
+        <button class="tablinks" onclick="openCity(event, 'Usuarios')">Seleccionar familia</button>
+        <button class="tablinks" onclick="openCity(event, 'Productos')">Productos</button>
+        <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
+    </div>
+</center>
+<!-- Tab content -->
+<div class="alert alert-success" id="msjExito">
+    Usuario eliminado con exito
+</div>
+<div id="Programas" class="tabcontent">
+    <center>
+        <h3>Programas de estudios</h3>
+        <div class="col-md-2 column productbox">
+
+            <img src="~/Scripts/images/No_Image_Available.gif" class="img-responsive" />
+            <div class="producttitle">fsfsdfs</div>
+            <button type="button" class="btn btn-dark">Ver detalles</button>
+        </div>
+        <br /><br />
+        
+    </center>
+</div>

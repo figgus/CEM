@@ -247,6 +247,7 @@
     <Content Include="Scripts\images\newsletter.jpg" />
     <Content Include="Scripts\images\newsletter_background.jpg" />
     <Content Include="Scripts\images\news_1.jpg" />
+    <Content Include="Scripts\images\No_Image_Available.gif" />
     <Content Include="Scripts\images\partner_1.png" />
     <Content Include="Scripts\images\partner_2.png" />
     <Content Include="Scripts\images\partner_3.png" />
@@ -282,6 +283,7 @@
     <Content Include="Scripts\js\courses.js" />
     <Content Include="Scripts\js\custom.js" />
     <Content Include="Scripts\js\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\js\jsDataTableAdmin.js" />
     <Content Include="Scripts\js\jsTabs.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\plugins\colorbox\colorbox.css" />
@@ -364,6 +366,11 @@
     <Content Include="Views\User\EditarUsuario.cshtml" />
     <Content Include="Views\User\AgregarCentro.cshtml" />
     <Content Include="Views\User\AgregarPrograma.cshtml" />
+    <Content Include="Views\User\PanelAlumno.cshtml" />
+    <Content Include="Views\User\PanelCEL.cshtml" />
+    <Content Include="Views\User\PanelCEM.cshtml" />
+    <Content Include="Views\User\PanelFamilia.cshtml" />
+    <Content Include="Views\Home\Programas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
