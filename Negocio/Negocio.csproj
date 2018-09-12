@@ -50,6 +50,7 @@
     <Compile Include="ClasesModelo\Usuario.cs" />
     <Compile Include="OperacionesCarrera.cs" />
     <Compile Include="OperacionesInstitucion.cs" />
+    <Compile Include="OperacionesPostulante.cs" />
     <Compile Include="OperacionesProgramasEstudios.cs" />
     <Compile Include="OperacionesTipoUsuario.cs" />
     <Compile Include="OperacionesUsuarios.cs" />

@@ -26,7 +26,7 @@ namespace CEM.Controllers
             return View();
         }
 
-        public ActionResult Programas()
+        public ActionResult ProgramasEstudio()
         {
             return View();
         }
@@ -42,6 +42,8 @@ namespace CEM.Controllers
             {
                 if (usu.Username==user && usu.Password==usu.Password)
                 {
+                    Session["idUsuario"]=usu.IdUsuario;
+                    Session["username"] = usu.Username;
                     return "true"+usu.TipoUsuario;
                 }
             }

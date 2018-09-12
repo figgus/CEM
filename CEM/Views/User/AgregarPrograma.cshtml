@@ -3,13 +3,8 @@
     ViewBag.Title = "AgregarPrograma";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-
-
-
 <script>
-    @*$(document).ready(
+    $(document).ready(
         function () {
             $("#msj").hide();
             $("#btnGuardar").click(
@@ -34,19 +29,15 @@
 
             );
         }
-    );*@
-
-
+    );
 </script>
-
 <body>
-    
     <div id="msj" class="alert alert-success">
         Usuario registrado con exito
     </div>
     <center>
         <h2>Agregar Programa</h2>
-        <form id="formulario" action="@Url.Action("CrearPrograma", "User")" method="post">
+        <form id="formulario" >
             <table>
                 <tr>
                     <td></td>
@@ -54,7 +45,6 @@
                 </tr>
 
                 <tr>
-
                     <td>Nombre del programa</td>
                     <td><input class="form-control" type="text" id="nombre" name="nombre" /></td>
                 </tr>
@@ -121,7 +111,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Crear Programa" /></td>
+                    <td><input type="button" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Crear Programa" /></td>
                 </tr>
             </table>
         </form>

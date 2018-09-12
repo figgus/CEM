@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Negocio.ClasesModelo
 {
-    class Postulante
+    public class Postulante
     {
+        public int IDPOSTULANTE { get; set; }
+        public string ESTADOPOSTULACION { get; set; }
+        public DateTime FECHAPOSTULACION { get; set; }
+        public int IDPROGRAMAESTUDIOFK { get; set; }
+        public int IDUSUARIOFK { get; set; }
     }
 }

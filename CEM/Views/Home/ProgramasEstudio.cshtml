@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "ProgramasEstudio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(
+    function () {
+        $("#msjError").hide();
+        $("#msjExito").hide();
+    }
+    );
+
+
+    function Postular(idAlumno, idPrograma) {
+        if (idAlumno==0) {
+            MostrarError();
+        }
+        else {
+            alert('entro');
+            var parms = { 'idAlumno': idAlumno, 'idPrograma': idPrograma };
+            $.ajax({
+                url: '@Url.Action("PostularAlumno", "User")',
+                type: 'POST',
+                data: parms,
+                success: function (result) {
+                    //alert(result);
+                    if (result === 'true') {
+                        $("#msjExito").show(2000).delay(2000).fadeOut(2000);
+                        $("#TUsuarios").load(location.href + " #TUsuarios>*", "");
+                    }
+
+                    else {
+                        $("#msj").show(2000).delay(2000).fadeOut(2000);
+                    }
+                }
+            }
+            );
+        }
+    }
+
+
+    function MostrarError() {
+        $("#msjError").show(2000).delay(2000).fadeOut(2000);
+    }
+    function MostrarExito() {
+        $("#msjExito").show(2000).delay(2000).fadeOut(2000);
+    }
+
+</script>
+
+<h2>ProgramasEstudio</h2>
+
+<div id="msjError" class="alert alert-danger">
+    Debe estar registrado para postular
+</div>
+
+<div class="alert alert-success" id="msjExito">
+    Postulacion realizada con exito consulte en su panel de usuario para mas informacion
+</div>
+
+    <div class="container">
+        <div class="row">
+
+            <!-- Courses Main Content -->
+            <div class="col-lg-12">
+                <div class="courses_search_container">
+                    <form action="#" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
+                        <input type="search" class="courses_search_input" placeholder="Search Courses" required="required">
+                        <select id="courses_search_select" class="courses_search_select courses_search_input">
+                            <option>All Categories</option>
+                            <option>Category</option>
+                            <option>Category</option>
+                            <option>Category</option>
+                        </select>
+                        <button action="submit" class="courses_search_button ml-auto">search now</button>
+                    </form>
+                </div>
+                <div class="courses_container">
+                    <div class="row courses_row">
+
+
+                        @{
+                            Negocio.OperacionesProgramasEstudios opprod = new Negocio.OperacionesProgramasEstudios();
+                            List<Negocio.ProgramaEstudios> lista = opprod.TraerTodo();
+                            foreach (Negocio.ProgramaEstudios prog in lista)
+                            {
+                                <div class="col-lg-6 course_col">
+                                    <div class="course">
+                                        <div class="course_image"><img src="~/Scripts/images/course_4.jpg" alt=""></div>
+                                        <div class="course_body">
+                                            <h3 class="course_title"><a href="course.html">@prog.NOMBREPROGRAMA</a></h3>
+                                            <div class="course_teacher"></div>
+                                            <div class="course_text">
+                                                <p>@prog.DESCRIPCION</p>
+                                            </div>
+                                        </div>
+                                        <div class="course_footer">
+                                            <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                                <div class="course_info">
+                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                    <span>@prog.CUPOS cupos</span>
+                                                </div>
+                                                <div class="course_info">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span>Periodo @prog.TIPOPERIODO</span>
+                                                </div>
+                                                @{
+                                                    int variable;
+                                                    try
+                                                    {
+                                                        variable = int.Parse(Session["idUsuario"].ToString());
+                                                    }
+                                                    catch (Exception)
+                                                    {
+                                                        variable = 0;
+                                                    }
+
+                                                <div class="course_price ml-auto"><button onclick="Postular(@variable,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Postular</button></div>
+                                                    }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        <!-- Course -->
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Courses Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>

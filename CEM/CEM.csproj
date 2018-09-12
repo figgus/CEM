@@ -370,7 +370,7 @@
     <Content Include="Views\User\PanelCEL.cshtml" />
     <Content Include="Views\User\PanelCEM.cshtml" />
     <Content Include="Views\User\PanelFamilia.cshtml" />
-    <Content Include="Views\Home\Programas.cshtml" />
+    <Content Include="Views\Home\ProgramasEstudio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

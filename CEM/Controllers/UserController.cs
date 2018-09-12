@@ -157,7 +157,7 @@ namespace CEM.Controllers
             programa.NOMBREPROGRAMA = Request["nombre"].ToString();
             programa.DESCRIPCION = Request["Desc"];
             var a = Request.Files;
-            if (a!=null)
+            if (a!=null && a.Count>0)
             {
                 var file = Request.Files[0];
                 var path = Path.Combine(Server.MapPath("~/Scripts/images/Programas/"),file.FileName);
@@ -188,5 +188,21 @@ namespace CEM.Controllers
             res = "true";
             return Json(res);
         }
+
+        [HttpPost]
+        public JsonResult PostularAlumno(int idAlumno,int idPrograma)
+        {
+            string res = "false";
+            OperacionesPostulante opost = new OperacionesPostulante();
+            Postulante postulante = new Postulante();
+            postulante.ESTADOPOSTULACION = "PENDIENTE";
+            postulante.IDPROGRAMAESTUDIOFK = idPrograma;
+            postulante.IDUSUARIOFK = idAlumno;
+            opost.Insertar(postulante);
+            res = "true";
+            return Json(res);
+        }
+
+        
     }
 }
