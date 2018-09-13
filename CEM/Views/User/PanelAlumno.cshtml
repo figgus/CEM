@@ -15,11 +15,6 @@
             $("#msjExito").hide();
         }
 );
-
-    
-
-
-    
 </script>
 
 <center>
@@ -41,15 +36,33 @@
     Usuario eliminado con exito
 </div>
 <div id="Programas" class="tabcontent">
-    <center>
-        <h3>Programas de estudios</h3>
-        <div class="col-md-2 column productbox">
+    <h3>Usuarios</h3>
+    <a href="@Url.Action("ProgramasEstudio", "Home")">
+        Haga click aqui si desea buscar programas para postular <img src="~/Scripts/images/toggle01.png" />
+    </a>
+    <table id="TProgramas" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre del programa</th>
+                <th>Estado Postulacion</th>
+                <th>Fecha de postulacion</th>
+            </tr>
+        </thead>
+        @{
+            List<Negocio.ClasesModelo.Postulante> list = new Negocio.OperacionesPostulante().TraerTodo();
+            Negocio.OperacionesProgramasEstudios oprog = new Negocio.OperacionesProgramasEstudios();
+            foreach (Negocio.ClasesModelo.Postulante post in list)
+            {
+                if (post.IDUSUARIOFK == int.Parse(Session["idUsuario"].ToString()))
+                {
+                    <tr>
+                        <th>@oprog.TraerNombrePorId(post.IDPROGRAMAESTUDIOFK)</th>
+                        <th>@post.ESTADOPOSTULACION</th>
+                        <th>@post.FECHAPOSTULACION</th>
+                    </tr>
+                }
+            }
+        }
 
-            <img src="~/Scripts/images/No_Image_Available.gif" class="img-responsive" />
-            <div class="producttitle">fsfsdfs</div>
-            <button type="button" class="btn btn-dark">Ver detalles</button>
-        </div>
-        <br /><br />
-        
-    </center>
+    </table>
 </div>

@@ -73,6 +73,12 @@ namespace Negocio
             return res;
         }
 
+        public string TraerNombrePorId(int id)
+        {
+            DataTable dt= ConexionOracle.Ejecutar("select NOMBREPROGRAMA from programaestudio where idprogramaestudio=" + id+ " and ROWNUM=1");
+            return dt.Rows[0]["NOMBREPROGRAMA"].ToString();
+        }
+
 
 
     }
