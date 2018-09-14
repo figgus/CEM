@@ -44,6 +44,7 @@ namespace CEM.Controllers
                 {
                     Session["idUsuario"]=usu.IdUsuario;
                     Session["username"] = usu.Username;
+                    Session["tipo"] = usu.TipoUsuario as int?;
                     return "true"+usu.TipoUsuario;
                 }
             }

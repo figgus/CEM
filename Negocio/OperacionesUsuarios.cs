@@ -30,7 +30,7 @@ namespace Negocio
         {
             bool res = false;
 
-            string sql = "begin USUARIOINSERT('" + user.Username + "','" + user.Password + "','" + user.Pnombre + "','" + user.Snombre + "','" + user.Appat + "','" + user.Apmat + "','" + user.Email + "','" + user.FonoCelular + "','" + user.FonoFijo + "'," + user.TipoUsuario + "," + user.AlumnoRegular + "," + user.IdCarrera + "); end;";
+            string sql = "begin USUARIOINSERT('" + user.Username + "','" + user.Password + "','" + user.Pnombre + "','" + user.Snombre + "','" + user.Appat + "','" + user.Apmat + "','" + user.Email + "','" + user.FonoCelular + "','" + user.FonoFijo + "'," + user.TipoUsuario + "," + user.AlumnoRegular + "," + user.IdCarrera + ","+user.idInstitucion+"); end;";
             this.ConexionOracle.Ejecutar(sql);
             res = true;
             return res;
@@ -56,6 +56,7 @@ namespace Negocio
                 user.TipoUsuario = int.Parse(row["tipoUsuario"].ToString());
                 user.AlumnoRegular = int.Parse(row["AlumnoRegular"].ToString());
                 user.IdCarrera = int.Parse(row["idUsuario"].ToString());
+                user.idInstitucion=int.Parse(row["idUsuario"].ToString()) as int?;
                 res.Add(user);
             }
             return res;
@@ -76,6 +77,20 @@ namespace Negocio
             this.ConexionOracle.Ejecutar(sql);
             res = true;
             return res;
+        }
+
+        public Usuario Traer(int id)
+        {
+            Usuario res=new Usuario();
+            foreach (Usuario usu in this.TraerTodo())
+            {
+                if (usu.IdUsuario==id)
+                {
+                    return usu;
+                }
+            }
+            return res;
+
         }
     }
 }

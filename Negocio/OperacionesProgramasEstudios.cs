@@ -79,7 +79,12 @@ namespace Negocio
             return dt.Rows[0]["NOMBREPROGRAMA"].ToString();
         }
 
-
+        public bool AsignarCentro(int idcentro,int idPrograma)
+        {
+            bool res = true;
+            ConexionOracle.Ejecutar("UPDATE programaEstudio set idCentro=" + idcentro+" where idprogramaEstudio="+idPrograma+"");
+            return res;
+        }
 
     }
 }

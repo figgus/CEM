@@ -9,27 +9,18 @@
             $("#msj").hide();
             $("#btnGuardar").click(
                 function () {
-                    $.ajax({
-                        url: '@Url.Action("CrearPrograma", "User")',
-                        type: 'POST',
-                        data: $("#formulario").serialize(),
-                        success: function (result) {
-                            //alert(result);
-                            if (result === 'true') {
-                                $("#msj").show(2000).delay(2000).fadeOut(2000);
-                                setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
-                            }
-                            else {
-                                alert('problema');
-                            }
-                        }
-                    }
-                    );
+                    setTimeout(function () { MostrarExito() }, 4000);
                 }
 
             );
         }
     );
+
+
+    function MostrarExito() {
+        $("#msj").show(2000).delay(2000).fadeOut(2000);
+        $('#formulario').submit();
+    }
 </script>
 <body>
     <div id="msj" class="alert alert-success">
@@ -37,7 +28,7 @@
     </div>
     <center>
         <h2>Agregar Programa</h2>
-        <form id="formulario" >
+        <form id="formulario" action="@Url.Action("CrearPrograma","User")" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td></td>
@@ -46,14 +37,14 @@
 
                 <tr>
                     <td>Nombre del programa</td>
-                    <td><input class="form-control" type="text" id="nombre" name="nombre" /></td>
+                    <td><input class="form-control" type="text" id="nombre" name="nombre" required /></td>
                 </tr>
                 <tr>
                     <td>
                         Descripcion
                     </td>
                     <td>
-                        <textarea class="form-control" id="Desc" name="Desc"></textarea>
+                        <textarea class="form-control" id="Desc" name="Desc" required></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +61,7 @@
                         Numero de cupos
                     </td>
                     <td>
-                        <input class="form-control" type="number" id="cupos" name="cupos" />
+                        <input class="form-control" type="number" id="cupos" name="cupos" required />
                     </td>
                 </tr>
 
@@ -79,7 +70,7 @@
                         Tipo de periodo
                     </td>
                     <td>
-                        <select class="form-control" id="periodo" name="periodo">
+                        <select class="form-control" id="periodo" name="periodo" required>
                             <option value="Normal">Normal</option>
                             <option value="Verano">Verano</option>
                         </select>

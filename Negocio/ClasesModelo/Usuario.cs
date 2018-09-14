@@ -61,5 +61,6 @@ namespace Negocio.ClasesModelo
         public string FonoFijo { get => fonoFijo; set => fonoFijo = value; }
         public int TipoUsuario { get => tipoUsuario; set => tipoUsuario = value; }
         public int AlumnoRegular { get => alumnoRegular; set => alumnoRegular = value; }
+        public int? idInstitucion { get; set; }
     }
 }

@@ -17,7 +17,7 @@
             MostrarError();
         }
         else {
-            alert('entro');
+            //alert('entro');
             var parms = { 'idAlumno': idAlumno, 'idPrograma': idPrograma };
             $.ajax({
                 url: '@Url.Action("PostularAlumno", "User")',
@@ -39,6 +39,28 @@
         }
     }
 
+    function Unirse(idCentro, idPrograma) {
+            //alert('entro');
+            var parms = { 'idCentro': idCentro, 'idPrograma': idPrograma };
+            $.ajax({
+                url: '@Url.Action("UnirseCel", "User")',
+                type: 'POST',
+                data: parms,
+                success: function (result) {
+                    //alert(result);
+                    if (result === 'true') {
+                        $("#msjExito").show(2000).delay(2000).fadeOut(2000);
+                        $("#TUsuarios").load(location.href + " #TUsuarios>*", "");
+                    }
+
+                    else {
+                        $("#msj").show(2000).delay(2000).fadeOut(2000);
+                    }
+                }
+            }
+            );
+        
+    }
 
     function MostrarError() {
         $("#msjError").show(2000).delay(2000).fadeOut(2000);
@@ -85,9 +107,14 @@
                             List<Negocio.ProgramaEstudios> lista = opprod.TraerTodo();
                             foreach (Negocio.ProgramaEstudios prog in lista)
                             {
+                                string nombre = prog.IMAGEN;
+                                if (string.IsNullOrEmpty(nombre))
+                                {
+                                    nombre = "course_4.jpg";
+                                }
                                 <div class="col-lg-6 course_col">
                                     <div class="course">
-                                        <div class="course_image"><img src="~/Scripts/images/course_4.jpg" alt=""></div>
+                                        <div class="course_image"><img src="~/Scripts/images/Programas/@nombre" alt=""></div>
                                         <div class="course_body">
                                             <h3 class="course_title"><a href="course.html">@prog.NOMBREPROGRAMA</a></h3>
                                             <div class="course_teacher"></div>
@@ -106,6 +133,7 @@
                                                     <span>Periodo @prog.TIPOPERIODO</span>
                                                 </div>
                                                 @{
+                                                    Negocio.OperacionesUsuarios opudu = new Negocio.OperacionesUsuarios();
                                                     int variable;
                                                     try
                                                     {
@@ -115,26 +143,31 @@
                                                     {
                                                         variable = 0;
                                                     }
-
-                                                <div class="course_price ml-auto"><button onclick="Postular(@variable,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Postular</button></div>
+                                                    int? tipo;
+                                                    try
+                                                    {
+                                                        tipo = int.Parse(Session["tipo"].ToString()) as int?;
                                                     }
+                                                    catch (Exception)
+                                                    {
+                                                        tipo = 0;
+                                                    }
+                                                    if (tipo == 4)
+                                                    {
+                                                        <div class="course_price ml-auto"><button onclick="Unirse(@opudu.Traer(variable).IdCarrera,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Unirse</button></div>
+                                                              }
+                                                    else
+                                                    {
+                                                        <div class="course_price ml-auto"><button onclick="Postular(@variable,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Postular</button></div>
+                                                    }
+
+                                                }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             }
                         }
-                        <!-- Course -->
-
-
-
-
-
-
-
-
-
-
                     </div>
 
                 </div>

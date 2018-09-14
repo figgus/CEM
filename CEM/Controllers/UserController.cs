@@ -62,6 +62,7 @@ namespace CEM.Controllers
             return View();
         }
 
+
         [HttpPost]
         public JsonResult BorrarUsuario(int idBorrar)
         {
@@ -90,8 +91,14 @@ namespace CEM.Controllers
             usu.FonoCelular= Request["movil"];
             usu.TipoUsuario = int.Parse( Request["tipoUsuario"]);
             usu.AlumnoRegular = int.Parse(Request["estado"]);
-            usu.IdCarrera = int.Parse(Request["idCarrera"]);
-
+            try
+            {
+                usu.IdCarrera = int.Parse(Request["idCarrera"]);
+            }
+            catch (Exception)
+            {
+                usu.IdCarrera = 22;
+            }
             if (new OperacionesUsuarios().Insertar2(usu))
             {
                 res = "true";
@@ -152,12 +159,11 @@ namespace CEM.Controllers
         [HttpPost]
         public ActionResult CrearPrograma()
         {
-            string res = "false";
             ProgramaEstudios programa = new ProgramaEstudios();
             programa.NOMBREPROGRAMA = Request["nombre"].ToString();
             programa.DESCRIPCION = Request["Desc"];
-            var a = Request.Files;
-            if (a!=null && a.Count>0)
+            var a = Request.Files["Ruta"];
+            if (a!=null && !string.IsNullOrEmpty( a.FileName))
             {
                 var file = Request.Files[0];
                 var path = Path.Combine(Server.MapPath("~/Scripts/images/Programas/"),file.FileName);
@@ -176,8 +182,7 @@ namespace CEM.Controllers
 
             OperacionesProgramasEstudios opro = new OperacionesProgramasEstudios();
             opro.Insertar(programa);
-            res = "true";
-            return Json(res);
+            return View("AgregarPrograma");
         }
 
         [HttpPost]
@@ -200,6 +205,18 @@ namespace CEM.Controllers
             postulante.IDUSUARIOFK = idAlumno;
             opost.Insertar(postulante);
             res = "true";
+            return Json(res);
+        }
+
+        [HttpPost]
+        public JsonResult UnirseCel(int idCentro, int idPrograma)
+        {
+            string res = "false";
+            OperacionesProgramasEstudios oprog = new OperacionesProgramasEstudios();
+            if (oprog.AsignarCentro(idCentro, idPrograma))
+            {
+                res = "true";
+            }
             return Json(res);
         }
 
