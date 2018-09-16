@@ -68,6 +68,7 @@ namespace CEM.Controllers
             user.FonoCelular = Request["fonoCelular"];
             user.FonoFijo = Request["fonoFijo"];
             string tipo = Request["tipoUsuario"];
+            user.idInstitucion = int.Parse(Request["Institucion"]);
             switch (tipo)
             {
                 case "Alumno":
@@ -85,7 +86,7 @@ namespace CEM.Controllers
             
             user.IdCarrera = int.Parse(Request["carrera"]);
 
-            new OperacionesUsuarios().Insertar(user);
+            new OperacionesUsuarios().Insertar2(user);
             res = "true";
             return Json(res);
         }

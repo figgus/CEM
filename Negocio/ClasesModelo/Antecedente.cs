@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Negocio.ClasesModelo
 {
-    class Antecedente
+    public class Antecedente
     {
+        public int idAntecedente { get; set; }
+        public string docadjunto{ get; set; }
+        public string tipoDoc{ get; set; }
+        public int idUsuarioFK { get; set; }
     }
 }

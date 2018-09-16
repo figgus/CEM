@@ -18,13 +18,13 @@ namespace Negocio
             ConexionOracle = new Conexion();
         }
 
-        public bool Insertar(Usuario user)
-        {
-            string sql = string.Format("insert into usuario values (AUTOUSUARIO.nextval,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})",
-                user.Username, user.Password, user.Pnombre, user.Snombre, user.Appat, user.Apmat, user.Email, user.FonoCelular, user.FonoFijo, user.TipoUsuario, user.AlumnoRegular, user.IdCarrera);
-            this.ConexionOracle.Ejecutar(sql);
-            return true;
-        }
+        //public bool Insertar(Usuario user)
+        //{
+        //    string sql = string.Format("insert into usuario values (AUTOUSUARIO.nextval,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})",
+        //        user.Username, user.Password, user.Pnombre, user.Snombre, user.Appat, user.Apmat, user.Email, user.FonoCelular, user.FonoFijo, user.TipoUsuario, user.AlumnoRegular, user.IdCarrera);
+        //    this.ConexionOracle.Ejecutar(sql);
+        //    return true;
+        //}
 
         public bool Insertar2(Usuario user)
         {
@@ -87,6 +87,35 @@ namespace Negocio
                 if (usu.IdUsuario==id)
                 {
                     return usu;
+                }
+            }
+            return res;
+
+        }
+
+        public List<Usuario> TraerFamilias()
+        {
+            List<Usuario> res=new List<Usuario>();
+            List<Usuario> lista = this.TraerTodo();
+            foreach (Usuario usu in lista)
+            {
+                if (usu.TipoUsuario==5)
+                {
+                    res.Add(usu);
+                }
+            }
+            return res;
+        }
+
+        public List<Usuario> TraerFamiliasPorInstitucion(int id)
+        {
+            List<Usuario> res = new List<Usuario>();
+            List<Usuario> lista = this.TraerTodo();
+            foreach (Usuario usu in lista)
+            {
+                if (usu.TipoUsuario == 5 && usu.idInstitucion==id)
+                {
+                    res.Add(usu);
                 }
             }
             return res;

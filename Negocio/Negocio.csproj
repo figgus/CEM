@@ -48,6 +48,7 @@
     <Compile Include="ClasesModelo\RelacionAlumnoFamilia.cs" />
     <Compile Include="ClasesModelo\TipoUsuario.cs" />
     <Compile Include="ClasesModelo\Usuario.cs" />
+    <Compile Include="OperacionesAntecedentes.cs" />
     <Compile Include="OperacionesCarrera.cs" />
     <Compile Include="OperacionesInstitucion.cs" />
     <Compile Include="OperacionesPostulante.cs" />

@@ -25,8 +25,8 @@
 
 
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Centros')">Ver notas</button>
-        <button class="tablinks" onclick="openCity(event, 'Programas')">Unirse a programa de estudios</button>
+        <button class="tablinks" onclick="openCity(event, 'Notas')">Ver notas</button>
+        <button class="tablinks" onclick="openCity(event, 'Programas')">Programas impartidos</button>
         <button class="tablinks" onclick="openCity(event, 'Usuarios')">Seleccionar familia</button>
         <button class="tablinks" onclick="openCity(event, 'Productos')">Productos</button>
         <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
@@ -45,8 +45,7 @@
         <thead>
             <tr>
                 <th>Nombre del programa</th>
-                <th>Estado Postulacion</th>
-                <th>Fecha de postulacion</th>
+                <th>Descripcion</th>
             </tr>
         </thead>
         @{
@@ -55,13 +54,32 @@
             foreach (Negocio.ProgramaEstudios prog in lista) {
                 if (prog.IDCENTRO==new Negocio.OperacionesUsuarios().Traer(int.Parse(Session["idUsuario"].ToString())).IdCarrera  ) {
                      <tr>
-                         <th>Nombre del programa</th>
-                         <th>Estado Postulacion</th>
-                         <th>Fecha de postulacion</th>
+                         <th>@oprog.TraerNombrePorId(prog.IDPROGRAMAESTUDIO)</th>
+                         <th>@prog.DESCRIPCION</th>
                      </tr>
                     }
                 }
             }
-
     </table>
+</div>
+
+
+<div id="Notas" class="tabcontent">
+    <h3>Seleccione alumno para ver sus calificaciones</h3>
+    <form action="@Url.Action("NotasAdmin", "User")" method="post">
+        <select>
+            @{
+                Negocio.OperacionesUsuarios opusu = new Negocio.OperacionesUsuarios();
+                List<Negocio.ClasesModelo.Usuario> listaUsu = opusu.TraerTodo();
+                foreach (Negocio.ClasesModelo.Usuario usu in listaUsu)
+                {
+                    if (usu.TipoUsuario==2 && usu.idInstitucion==opusu.Traer(int.Parse(Session["idUsuario"].ToString())).idInstitucion) {
+                        <option value="@usu.IdUsuario">@string.Format("{0} {1} {2} {3}", usu.Pnombre, usu.Snombre, usu.Appat, usu.Apmat)</option>
+                    }
+                }
+            }
+
+        </select>
+        <input type="submit" value="Ver notas" class=".btn-info"/>
+    </form>
 </div>

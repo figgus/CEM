@@ -3,6 +3,60 @@
     ViewBag.Title = "PanelFamilia";
     Layout = "~/Views/Shared/MasterPageAmplio.cshtml";
 }
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
+<script src="~/Scripts/js/jsTabs.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $("#msjExito").hide();
+        }
+    );
+</script>
+<center>
+    <h2>PanelFamilia</h2>
 
-<h2>PanelFamilia</h2>
+    <p>Seleccione la accion a realizar</p>
 
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Antecedentes')">Subir antecedentes</button>
+        <button class="tablinks" onclick="openCity(event, 'Solicitudes')">Solicitudes recibidas</button>
+    </div>
+</center>
+<!-- Tab content -->
+<div class="alert alert-success" id="msjExito">
+    Usuario eliminado con exito
+</div>
+<div id="Antecedentes" class="tabcontent">
+
+    <table id="TProgramas" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre del documento</th>
+                <th>Tipo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        @{
+            List<Negocio.ClasesModelo.Antecedente> lista = new Negocio.OperacionesAntecedentes().TraerDe(int.Parse(Session["idUsuario"].ToString()));
+
+            foreach (Negocio.ClasesModelo.Antecedente ante in lista)
+            {
+                <tr>
+                    <th>@ante.docadjunto</th>
+                    <th>@ante.tipoDoc</th>
+                    <th></th>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+
+<div id="Solicitudes" class="tabcontent">
+    <h3>Lista de solicitudes de alojamiento para estudiantes</h3>
+    <form action="@Url.Action("NotasAdmin", "User")" method="post">
+        
+    </form>
+</div>

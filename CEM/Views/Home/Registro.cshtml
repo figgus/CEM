@@ -68,6 +68,18 @@
     <br />
     <input type="text" placeholder="Numero celular" id="fonoCelular" name="fonoCelular" class="form-control" />
     <br />
+    <select id="Institucion" name="Institucion" class="form-control">
+        <option selected value="22">Seleccione su institucion</option>
+        @{
+            Negocio.OperacionesInstitucion opin = new Negocio.OperacionesInstitucion();
+            List<Negocio.ClasesModelo.Institucion> lista = opin.TraerTodo();
+            foreach (Negocio.ClasesModelo.Institucion insti in lista)
+            {
+                <option value="@insti.idInstitucion">@insti.nomInstitucion</option>
+            }
+        }
+    </select>
+    <br />
     <input type="text" placeholder="Numero fijo" id="fonoFijo" name="fonoFijo" class="form-control" />
     <br />
     <select onchange="AlumnoSelected()" id="tipoUsuario" name="tipoUsuario" class="form-control">
@@ -81,13 +93,13 @@
     <select id="carrera" name="carrera" class="form-control">
         <option value="22">Ninguna</option>
         @{
-                                Negocio.OperacionesCarrera opcar = new Negocio.OperacionesCarrera();
-                                List<Negocio.ClasesModelo.Carrera> lista = opcar.TraerTodo();
-                                foreach (Negocio.ClasesModelo.Carrera car in lista)
-                                {
-                                    <option value="@car.idCarrera">@car.nombreCarrera</option>
-                                }
-                            }
+            Negocio.OperacionesCarrera opcar = new Negocio.OperacionesCarrera();
+            List<Negocio.ClasesModelo.Carrera> lista1 = opcar.TraerTodo();
+            foreach (Negocio.ClasesModelo.Carrera car in lista1)
+            {
+                <option value="@car.idCarrera">@car.nombreCarrera</option>
+            }
+        }
     </select>
     <br />
     <center>
