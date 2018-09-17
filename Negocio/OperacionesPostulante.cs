@@ -47,5 +47,18 @@ namespace Negocio
             return res;
         }
 
+        public List<Postulante> TraerDe(int? idPorgrama)//Trae los postulantes a un programa de estudios
+        {
+            List<Postulante> res = new List<Postulante>();
+            foreach (Postulante post in this.TraerTodo())
+            {
+                if (post.IDPROGRAMAESTUDIOFK==idPorgrama)
+                {
+                    res.Add(post);
+                }
+            }
+            return res;
+        }
+
     }
 }

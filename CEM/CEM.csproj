@@ -375,6 +375,7 @@
     <Content Include="Views\User\NotasAdmin.cshtml" />
     <Content Include="Views\User\CargarAntecedente.cshtml" />
     <Content Include="Views\User\VerAntecedentes.cshtml" />
+    <Content Include="Views\User\VerPostulantes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

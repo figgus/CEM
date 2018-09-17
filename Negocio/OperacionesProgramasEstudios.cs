@@ -86,5 +86,25 @@ namespace Negocio
             return res;
         }
 
+        public List<Usuario> TraerAlumnosPostulantes(int idProg)
+        {
+            string sql = "select a.idUsuario, a.pnombre,a.appat,a.email from usuario a left join postulante b on a.idusuario=b.idusuariofk where b.idprogramaestudiofk="+idProg+"";
+            DataTable dt= ConexionOracle.Ejecutar(sql);
+            List<Usuario> usus = new List<Usuario>();
+            foreach (DataRow row in dt.Rows)
+            {
+                Usuario user = new Usuario();
+                user.IdUsuario = int.Parse(row["idUsuario"].ToString());
+                user.Pnombre = row["pnombre"].ToString();
+                //user.Snombre = row["Snombre"].ToString();
+                user.Appat = row["Appat"].ToString();
+                user.Email = row["Email"].ToString();
+                //user.AlumnoRegular = int.Parse(row["AlumnoRegular"].ToString());
+                //user.IdCarrera = int.Parse(row["idUsuario"].ToString());
+                //user.idInstitucion = int.Parse(row["idUsuario"].ToString()) as int?;
+            }
+            return usus;
+        }
+
     }
 }

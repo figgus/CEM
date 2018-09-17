@@ -18,14 +18,13 @@
                     type: 'POST',
                     data: $("#formulario").serialize(),
                     success: function (result) {
-
-                        alert(result);
-                        //if (result === 'true') {
-                        //    window.location.href = "/Tienda/Login";
-                        //}
-                        //else {
-                        //    $("#msj").show(2000).delay(2000).fadeOut(2000);
-                        //}
+                        
+                        if (result === 'true') {
+                            window.location.href = "/home/Login";
+                        }
+                        else {
+                            $("#msj").show(2000).delay(2000).fadeOut(2000);
+                        }
                     }
                 }
                 );

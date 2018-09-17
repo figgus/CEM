@@ -16,22 +16,36 @@
     </div>
     <center>
         <h2>Ver Antecedente</h2>
-        <form id="formulario" action="@Url.Action("SubirAntecedente","User")" method="post" enctype="multipart/form-data">
-            <table>
-                <tr>
-                    <td><input type="file" id="archivo" name="archivo" value="Subir" /></td>
-                    <td></td>
+       
+        <table>
+
+
+            <tr>
+                @{
+                    Negocio.OperacionesAntecedentes opante = new Negocio.OperacionesAntecedentes();
+                    List<Negocio.ClasesModelo.Antecedente> lista = opante.TraerDe(int.Parse(Request["id"]));//hacer que id sea un parametro post
+                    if (lista.Count > 0)
+                    {
+                    <tr>
+                        <td>Nombre documento</td>
+                        <td>Tipo de documento</td>
+                    </tr>
+                    foreach (Negocio.ClasesModelo.Antecedente ant in lista)
+                    {
+                        <td>@ant.docadjunto</td>
+
+                        <td> @ant.tipoDoc  </td>
+                    }
+                }
+                else
+                {
+                    <label>La familia seleccionada no ha subido documentos al sistema</label>
+                }
+                }
+
                 </tr>
 
-                <tr>
-                    <td>Tipo de documento</td>
-                    <td><input class="form-control" type="text" id="tipo" name="tipo" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Guardar" /></td>
-                </tr>
             </table>
-        </form>
+       
     </center>
 </body>

@@ -77,6 +77,11 @@ namespace CEM.Controllers
             return View();
         }
 
+        public ActionResult VerPostulantes()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public JsonResult BorrarUsuario(int idBorrar)
@@ -106,6 +111,10 @@ namespace CEM.Controllers
             usu.FonoCelular= Request["movil"];
             usu.TipoUsuario = int.Parse( Request["tipoUsuario"]);
             usu.AlumnoRegular = int.Parse(Request["estado"]);
+            if (usu.TipoUsuario==3)
+            {
+                usu.idInstitucion = 1;
+            }
             try
             {
                 usu.IdCarrera = int.Parse(Request["idCarrera"]);

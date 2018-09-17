@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "VerPostulantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ver Postulantes a @Request["nom"]</h2>
+
+@{ 
+    int id = int.Parse(Request["id"]);
+    List<Negocio.ClasesModelo.Usuario> postu = new Negocio.OperacionesProgramasEstudios().TraerAlumnosPostulantes(id);
+    if (postu.Count>0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Area</th>
+                    <th>Fecha publicacion</th>
+                    <th>Cupos</th>
+                    <th>Tipo periodo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            @{ 
+                foreach (Negocio.ClasesModelo.Usuario post in postu)
+                {
+            <tr>
+                <th></th>
+                <th>@post.Pnombre</th>
+                <th>@post.Email</th>
+                <th>Cupos</th>
+                <th>Tipo periodo</th>
+                <th>Acciones</th>
+            </tr>
+                }
+            }
+        </table>
+    }
+    else
+    {
+        <label>Este programa no tiene postulantes</label>
+    }
+
+}

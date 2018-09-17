@@ -107,65 +107,68 @@
                             List<Negocio.ProgramaEstudios> lista = opprod.TraerTodo();
                             foreach (Negocio.ProgramaEstudios prog in lista)
                             {
-                                string nombre = prog.IMAGEN;
-                                if (string.IsNullOrEmpty(nombre))
+                                if (prog.PUBLICADO=='1')
                                 {
-                                    nombre = "course_4.jpg";
-                                }
-                                <div class="col-lg-6 course_col">
-                                    <div class="course">
-                                        <div class="course_image"><img src="~/Scripts/images/Programas/@nombre" alt=""></div>
-                                        <div class="course_body">
-                                            <h3 class="course_title"><a href="course.html">@prog.NOMBREPROGRAMA</a></h3>
-                                            <div class="course_teacher"></div>
-                                            <div class="course_text">
-                                                <p>@prog.DESCRIPCION</p>
+                                    string nombre = prog.IMAGEN;
+                                    if (string.IsNullOrEmpty(nombre))
+                                    {
+                                        nombre = "course_4.jpg";
+                                    }
+                                    <div class="col-lg-6 course_col">
+                                        <div class="course">
+                                            <div class="course_image"><img src="~/Scripts/images/Programas/@nombre" alt=""></div>
+                                            <div class="course_body">
+                                                <h3 class="course_title"><a href="course.html">@prog.NOMBREPROGRAMA</a></h3>
+                                                <div class="course_teacher"></div>
+                                                <div class="course_text">
+                                                    <p>@prog.DESCRIPCION</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="course_footer">
-                                            <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                                <div class="course_info">
-                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                                    <span>@prog.CUPOS cupos</span>
-                                                </div>
-                                                <div class="course_info">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>Periodo @prog.TIPOPERIODO</span>
-                                                </div>
-                                                @{
-                                                    Negocio.OperacionesUsuarios opudu = new Negocio.OperacionesUsuarios();
-                                                    int variable;
-                                                    try
-                                                    {
-                                                        variable = int.Parse(Session["idUsuario"].ToString());
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        variable = 0;
-                                                    }
-                                                    int? tipo;
-                                                    try
-                                                    {
-                                                        tipo = int.Parse(Session["tipo"].ToString()) as int?;
-                                                    }
-                                                    catch (Exception)
-                                                    {
-                                                        tipo = 0;
-                                                    }
-                                                    if (tipo == 4)
-                                                    {
-                                                        <div class="course_price ml-auto"><button onclick="Unirse(@opudu.Traer(variable).IdCarrera,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Unirse</button></div>
-                                                              }
-                                                    else
-                                                    {
-                                                        <div class="course_price ml-auto"><button onclick="Postular(@variable,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Postular</button></div>
-                                                    }
+                                            <div class="course_footer">
+                                                <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="course_info">
+                                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                        <span>@prog.CUPOS cupos</span>
+                                                    </div>
+                                                    <div class="course_info">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <span>Periodo @prog.TIPOPERIODO</span>
+                                                    </div>
+                                                    @{
+                                                        Negocio.OperacionesUsuarios opudu = new Negocio.OperacionesUsuarios();
+                                                        int variable;
+                                                        try
+                                                        {
+                                                            variable = int.Parse(Session["idUsuario"].ToString());
+                                                        }
+                                                        catch (Exception)
+                                                        {
+                                                            variable = 0;
+                                                        }
+                                                        int? tipo;
+                                                        try
+                                                        {
+                                                            tipo = int.Parse(Session["tipo"].ToString()) as int?;
+                                                        }
+                                                        catch (Exception)
+                                                        {
+                                                            tipo = 0;
+                                                        }
+                                                        if (tipo == 4)
+                                                        {
+                                                            <div class="course_price ml-auto"><button onclick="Unirse(@opudu.Traer(variable).IdCarrera,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Unirse</button></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="course_price ml-auto"><button onclick="Postular(@variable,@prog.IDPROGRAMAESTUDIO)" type="button" class="btn btn-dark">Postular</button></div>
+                                                        }
 
-                                                }
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             }
                         }
                     </div>
