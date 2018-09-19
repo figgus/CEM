@@ -10,15 +10,3 @@ C:\Users\joaquin\source\repos\CEM\Negocio\obj\Debug\Negocio.csproj.CoreCompileIn
 C:\Users\joaquin\source\repos\CEM\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\Users\joaquin\source\repos\CEM\Negocio\obj\Debug\Negocio.dll
 C:\Users\joaquin\source\repos\CEM\Negocio\obj\Debug\Negocio.pdb
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Negocio.dll.config
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Negocio.dll
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Negocio.pdb
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Datos.dll
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Oracle.ManagedDataAccess.dll
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Datos.pdb
-C:\proyecto portafolio\CEM\Negocio\bin\Debug\Datos.dll.config
-C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.csprojAssemblyReference.cache
-C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
-C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.csproj.CopyComplete
-C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.dll
-C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.pdb

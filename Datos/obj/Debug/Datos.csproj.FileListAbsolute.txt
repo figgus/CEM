@@ -7,12 +7,3 @@ C:\Users\joaquin\source\repos\CEM\Datos\obj\Debug\Datos.csproj.CopyComplete
 C:\Users\joaquin\source\repos\CEM\Datos\obj\Debug\Datos.dll
 C:\Users\joaquin\source\repos\CEM\Datos\obj\Debug\Datos.pdb
 C:\Users\joaquin\source\repos\CEM\Datos\obj\Debug\Datos.csprojAssemblyReference.cache
-C:\proyecto portafolio\CEM\Datos\bin\Debug\Datos.dll.config
-C:\proyecto portafolio\CEM\Datos\bin\Debug\Datos.dll
-C:\proyecto portafolio\CEM\Datos\bin\Debug\Datos.pdb
-C:\proyecto portafolio\CEM\Datos\bin\Debug\Oracle.ManagedDataAccess.dll
-C:\proyecto portafolio\CEM\Datos\obj\Debug\Datos.csprojAssemblyReference.cache
-C:\proyecto portafolio\CEM\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
-C:\proyecto portafolio\CEM\Datos\obj\Debug\Datos.csproj.CopyComplete
-C:\proyecto portafolio\CEM\Datos\obj\Debug\Datos.dll
-C:\proyecto portafolio\CEM\Datos\obj\Debug\Datos.pdb

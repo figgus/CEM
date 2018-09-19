@@ -265,5 +265,30 @@ namespace CEM.Controllers
 
             return View("PanelFamilia");
         }
+
+        [HttpPost]
+        public JsonResult SeleccionPostulante(int idUsuPostu,int idPrograma)
+        {
+            string res = "false";
+            OperacionesPostulante opostu = new OperacionesPostulante();
+            if (opostu.SeleccionarPostulante(idUsuPostu, idPrograma))
+            {
+                res = "true";
+                try
+                {
+                    Usuario usu = new OperacionesUsuarios().Traer(idUsuPostu);
+                    Mailer mailer = new Mailer(usu.Email, "Notificacion de postulacion aceptada", "Felicidades ha sido seleccionado para el programa de estudio al que postulo");
+                    mailer.sendEmail();
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            return Json(res);
+        }
+
+
+       
     }
 }

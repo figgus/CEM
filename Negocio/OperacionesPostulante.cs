@@ -60,5 +60,18 @@ namespace Negocio
             return res;
         }
 
+        public bool SeleccionarPostulante(int idUsuPostu,int idPrograma)
+        {
+            bool res = false;
+            ConexionOracle.Ejecutar("UPDATE postulante set estadopostulacion='APROBADO' where idusuariofk="+idUsuPostu+ " and idprogramaestudiofk="+idPrograma+"");
+            res = true;
+            return res;
+        }
+
+        private bool EsRegular()
+        {
+            return true;
+        }
+
     }
 }
