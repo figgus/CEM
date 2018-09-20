@@ -82,6 +82,10 @@ namespace CEM.Controllers
             return View();
         }
 
+        public ActionResult Calificaciones()
+        {
+            return View();
+        }
 
         [HttpPost]
         public JsonResult BorrarUsuario(int idBorrar)

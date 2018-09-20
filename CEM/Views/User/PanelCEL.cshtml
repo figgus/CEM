@@ -10,10 +10,38 @@
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
 <script src="~/Scripts/js/jsTabs.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
      $(document).ready(
         function () {
             $("#msjExito").hide();
+            $('#TProgramas').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
         }
 );
 </script>
@@ -30,19 +58,13 @@
     </div>
 </center>
 <!-- Tab content -->
-<div class="alert alert-success" id="msjExito">
-    Usuario eliminado con exito
-</div>
 <div id="Programas" class="tabcontent">
-    <h3>Usuarios</h3>
-    <a href="@Url.Action("ProgramasEstudio", "Home")">
-        Haga click aqui si desea buscar programas para unirse
-    </a>
     <table id="TProgramas" style="width:100%">
         <thead>
             <tr>
                 <th>Nombre del programa</th>
                 <th>Descripcion</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         @{
@@ -53,6 +75,13 @@
                      <tr>
                          <th>@oprog.TraerNombrePorId(prog.IDPROGRAMAESTUDIO)</th>
                          <th>@prog.DESCRIPCION</th>
+                         <th>
+                             <form action="@Url.Action("VerPostulantes","User")" method="post">
+                                 <input type="hidden" value="@prog.IDPROGRAMAESTUDIO" id="id" name="id" />
+                                 <input type="hidden" value="@prog.NOMBREPROGRAMA" id="nom" name="nom" />
+                                 <input class="btn btn-link" type="submit" value="Ver Postulantes" />
+                             </form>
+                         </th>
                      </tr>
                     }
                 }

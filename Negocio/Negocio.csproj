@@ -55,6 +55,7 @@
     <Compile Include="OperacionesAntecedentes.cs" />
     <Compile Include="OperacionesCarrera.cs" />
     <Compile Include="OperacionesInstitucion.cs" />
+    <Compile Include="OperacionesNota.cs" />
     <Compile Include="OperacionesPostulante.cs" />
     <Compile Include="OperacionesProgramasEstudios.cs" />
     <Compile Include="OperacionesTipoUsuario.cs" />

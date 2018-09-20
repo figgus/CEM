@@ -80,7 +80,9 @@
             <tr>
                 <th>@string.Format("{0} {1} {2} {3}",post.Pnombre,post.Snombre,post.Appat,post.Apmat)</th>
                 <th>@post.Email</th>
-                <th><a href="javascript:void(0)" onclick="Aprobar(@post.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a></th>
+                <th><a href="javascript:void(0)" onclick="Aprobar(@post.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
+                    <a href="@Url.Action("Calificaciones","User")?id=@post.IdUsuario"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola"/></a>
+                </th>
             </tr>
                 }
             }

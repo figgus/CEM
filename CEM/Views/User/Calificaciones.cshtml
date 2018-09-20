@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Calificaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $('#PostuT').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+        }
+    );
+
+    function Aprobar(id,idProg) {
+        var parms = { 'idUsuPostu': id, 'idPrograma': idProg};
+        $.ajax({
+            url: '@Url.Action("SeleccionPostulante", "User")',
+            type: 'POST',
+            data: parms,
+            success: function (result) {
+                //alert(result);
+                if (result === 'true') {
+                    toastr.success('Postulante seleccionado');
+                    //$("#PostuT").load(location.href + " #PostuT>*", "");
+                }
+
+                else {
+                    toastr.error('Error durante el procesamiento de datos, informe al administrador');
+                }
+            }
+        }
+        );
+    }
+</script>
+
+<h2>Postulantes a @Request["nom"]</h2>
+
+@{
+    @*int id = int.Parse(Request["id"]);
+    List<Negocio.ClasesModelo.Usuario> postu = new Negocio.OperacionesProgramasEstudios().TraerAlumnosPostulantes(id);
+    if (postu.Count > 0)
+    {
+        <table id="PostuT">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            @{
+                foreach (Negocio.ClasesModelo.Usuario post in postu)
+                {
+                    <tr>
+                        <th>@string.Format("{0} {1} {2} {3}", post.Pnombre, post.Snombre, post.Appat, post.Apmat)</th>
+                        <th>@post.Email</th>
+                        <th><a href="javascript:void(0)" onclick="Aprobar(@post.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a></th>
+                    </tr>
+                }
+            }
+        </table>
+    }
+    else
+    {
+        <label>Este programa no tiene postulantes</label>
+    }*@
+
+}
