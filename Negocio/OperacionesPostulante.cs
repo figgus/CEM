@@ -22,7 +22,10 @@ namespace Negocio
         public bool Insertar(Postulante postulante)
         {
             bool res = false;
-
+            if (this.YaPostulo(postulante.IDUSUARIOFK,postulante.IDPROGRAMAESTUDIOFK))
+            {
+                return false;
+            }
             string sql = "begin POSTULANTEINSERT('"+postulante.ESTADOPOSTULACION+"',"+postulante.IDPROGRAMAESTUDIOFK+","+postulante.IDUSUARIOFK+"); end;";
             this.ConexionOracle.Ejecutar(sql);
             res = true;
@@ -47,6 +50,7 @@ namespace Negocio
             return res;
         }
 
+
         public List<Postulante> TraerDe(int? idPorgrama)//Trae los postulantes a un programa de estudios
         {
             List<Postulante> res = new List<Postulante>();
@@ -68,10 +72,38 @@ namespace Negocio
             return res;
         }
 
+        public Postulante Traer(int idUsuPostu, int idPrograma)
+        {
+            foreach (Postulante pos in this.TraerTodo())
+            {
+                if (pos.IDUSUARIOFK==idUsuPostu && pos.IDPROGRAMAESTUDIOFK==idPrograma)
+                {
+                    return pos;
+                }
+            }
+            return new Postulante();
+        }
+
+
         private bool EsRegular()
         {
             return true;
         }
+
+        private bool YaPostulo(int idAlu,int idProg)
+        {
+            foreach (Postulante pos in this.TraerTodo())
+            {
+                if (pos.IDUSUARIOFK==idAlu && pos.IDPROGRAMAESTUDIOFK==idProg)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
 
     }
 }

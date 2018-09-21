@@ -232,6 +232,7 @@ namespace CEM.Controllers
             postulante.IDPROGRAMAESTUDIOFK = idPrograma;
             postulante.IDUSUARIOFK = idAlumno;
             opost.Insertar(postulante);
+            
             res = "true";
             return Json(res);
         }
@@ -277,6 +278,7 @@ namespace CEM.Controllers
             OperacionesPostulante opostu = new OperacionesPostulante();
             if (opostu.SeleccionarPostulante(idUsuPostu, idPrograma))
             {
+                new OperacionesNota().InsertarNotasPorDefecto(opostu.Traer(idUsuPostu,idPrograma).IDPOSTULANTE, idPrograma);
                 res = "true";
                 try
                 {

@@ -10,7 +10,7 @@
 <script type="text/javascript">
     $(document).ready(
         function () {
-            $('#PostuT').DataTable({
+            $('#TNotas').DataTable({
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ Registros",
@@ -40,58 +40,31 @@
         }
     );
 
-    function Aprobar(id,idProg) {
-        var parms = { 'idUsuPostu': id, 'idPrograma': idProg};
-        $.ajax({
-            url: '@Url.Action("SeleccionPostulante", "User")',
-            type: 'POST',
-            data: parms,
-            success: function (result) {
-                //alert(result);
-                if (result === 'true') {
-                    toastr.success('Postulante seleccionado');
-                    //$("#PostuT").load(location.href + " #PostuT>*", "");
-                }
-
-                else {
-                    toastr.error('Error durante el procesamiento de datos, informe al administrador');
-                }
-            }
-        }
-        );
-    }
+    
 </script>
-
-<h2>Postulantes a @Request["nom"]</h2>
-
-@{
-    @*int id = int.Parse(Request["id"]);
-    List<Negocio.ClasesModelo.Usuario> postu = new Negocio.OperacionesProgramasEstudios().TraerAlumnosPostulantes(id);
-    if (postu.Count > 0)
-    {
-        <table id="PostuT">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            @{
-                foreach (Negocio.ClasesModelo.Usuario post in postu)
-                {
-                    <tr>
-                        <th>@string.Format("{0} {1} {2} {3}", post.Pnombre, post.Snombre, post.Appat, post.Apmat)</th>
-                        <th>@post.Email</th>
-                        <th><a href="javascript:void(0)" onclick="Aprobar(@post.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a></th>
-                    </tr>
-                }
-            }
-        </table>
-    }
-    else
-    {
-        <label>Este programa no tiene postulantes</label>
-    }*@
+@{ 
+    int id = int.Parse(Request["id"]);
+    Negocio.ClasesModelo.Usuario user = new Negocio.OperacionesUsuarios().Traer(id);
 
 }
+<h2>Notas de en @string.Format("{0} {1} {2} {3}",user.Pnombre,user.Snombre,user.Appat,user.Apmat)</h2>
+
+<table id="TNotas">
+    <thead>
+        <tr>
+            <th>1° nota</th>
+            <th>2° nota</th>
+            <th>3° nota</th>
+            <th>4° nota</th>
+        </tr>
+    </thead>
+    <tr>
+        <th><input class="form-control" type="text" id="nota" name="nota1" value="" /></th>
+        <th><input class="form-control" type="text" id="nota" name="nota2" value=""/></th>
+        <th><input class="form-control" type="text" id="nota" name="nota3" value=""/></th>
+        <th><input class="form-control" type="text" id="nota" name="nota4" value=""/></th>
+    </tr>
+</table>
+<center>
+    <input class="btn btn-primary" type="button" id="btnNota" name="btnNota" value="Registrar Notas" />
+</center>
