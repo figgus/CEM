@@ -9,9 +9,11 @@ namespace Negocio.ClasesModelo
     public class Nota
     {
         public int idNotas { get; set; }
-        public string calificacion { get; set; }
+        public float calificacion { get; set; }
         public string profesor { get; set; }
         public int idPostulanteFK { get; set; }
         public int idPogramaFK{ get; set; }
+        public DateTime fecha { get; set; }
+        public int numeral { get; set; }
     }
 }

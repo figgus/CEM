@@ -2,6 +2,7 @@
 using Negocio.ClasesModelo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,28 @@ namespace Negocio
         public bool Insertar(Nota nota)
         {
             bool res = false;
-
             string sql = "begin NOTAINSERT('"+nota.calificacion+"','"+nota.profesor+"',"+nota.idPostulanteFK+","+nota.idPogramaFK+"); end;";
             this.ConexionOracle.Ejecutar(sql);
             res = true;
+            return res;
+        }
+
+        public List<Nota> TraerTodo()
+        {
+            List<Nota> res = new List<Nota>();
+            DataTable tabla = this.ConexionOracle.Ejecutar("select * from notas");
+            foreach (DataRow row in tabla.Rows)
+            {
+                Nota nota = new Nota();
+                nota.idNotas =int.Parse( row["IDNOTAS"].ToString());
+                nota.calificacion = float.Parse(row["CALIFICACION"].ToString());
+                nota.profesor = row["PROFESOR"].ToString();
+                nota.idPostulanteFK= int.Parse(row["IDPOSTULANTEFK"].ToString());
+                nota.idPogramaFK= int.Parse(row["IDPROGRAMAFK"].ToString());
+                nota.fecha = DateTime.Parse(row["fecha"].ToString());
+                nota.numeral= int.Parse(row["NUMERAL"].ToString());
+                res.Add(nota);
+            }
             return res;
         }
 
@@ -61,7 +80,27 @@ namespace Negocio
             return res;
         }
 
+        public List<Nota> TraeNotasDe(int idPostu)
+        {
+            List<Nota> res = new List<Nota>();
+            foreach (Nota nota in this.TraerTodo())
+            {
+                if (nota.idPostulanteFK==idPostu)
+                {
+                    res.Add(nota);
+                }
+            }
+            return res;
+        }
 
+        public bool Actualizar(int id, float calificacion)
+        {
+            bool res = false;
+            string sql = string.Format("begin NOTAUPDATE({0},{1}); end;",calificacion,id);
+            ConexionOracle.Ejecutar(sql);
+            res = true;
+            return res;
+        }
 
     }
 }

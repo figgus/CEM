@@ -47,7 +47,7 @@
     Negocio.ClasesModelo.Usuario user = new Negocio.OperacionesUsuarios().Traer(id);
 
 }
-<h2>Notas de en @string.Format("{0} {1} {2} {3}",user.Pnombre,user.Snombre,user.Appat,user.Apmat)</h2>
+<h2>Notas de @string.Format("{0} {1} {2} {3}", user.Pnombre, user.Snombre, user.Appat, user.Apmat) en @Request["prog"]</h2>
 
 <table id="TNotas">
     <thead>
@@ -58,11 +58,38 @@
             <th>4° nota</th>
         </tr>
     </thead>
-    <tr>
-        <th><input class="form-control" type="text" id="nota" name="nota1" value="" /></th>
-        <th><input class="form-control" type="text" id="nota" name="nota2" value=""/></th>
-        <th><input class="form-control" type="text" id="nota" name="nota3" value=""/></th>
-        <th><input class="form-control" type="text" id="nota" name="nota4" value=""/></th>
+    <tr> 
+        @{ 
+            Negocio.OperacionesNota opnota = new Negocio.OperacionesNota();
+            List<Negocio.ClasesModelo.Nota> lista = opnota.TraeNotasDe(id);
+            float nota1 = 0 ;
+            float nota2=0;
+            float nota3=0;
+            float nota4=0;
+            foreach (Negocio.ClasesModelo.Nota nota in lista)
+            {
+                switch (nota.numeral)
+                {
+                    case 1:
+                        nota1 = nota.calificacion;
+                        break;
+                    case 2:
+                        nota2 = nota.calificacion;
+                        break;
+                    case 3:
+                        nota3 = nota.calificacion;
+                        break;
+                    case 4:
+                        nota4 = nota.calificacion;
+                        break;
+
+                }
+            }
+            }
+        <th><input class="form-control" type="text" id="nota1" name="nota1" value="@nota1" /></th>
+        <th><input class="form-control" type="text" id="nota2" name="nota2" value="@nota2"/></th>
+        <th><input class="form-control" type="text" id="nota3" name="nota3" value="@nota3"/></th>
+        <th><input class="form-control" type="text" id="nota4" name="nota4" value="@nota4"/></th>
     </tr>
 </table>
 <center>

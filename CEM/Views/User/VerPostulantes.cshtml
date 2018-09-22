@@ -85,8 +85,15 @@
         );
     }
 </script>
+@{string nom = Request["nom"];}
+<h1>Ver Postulantes a @nom</h1>
 
-<h2>Ver Postulantes a @Request["nom"]</h2>
+
+<br />
+<br />
+<br />
+
+<h2>Postulantes pendientes</h2>
 
 @{
     int id = int.Parse(Request["id"]);
@@ -104,13 +111,11 @@
             @{
                 foreach (Negocio.ClasesModelo.Usuario post in postu)
                 {
-
                     <tr>
                         <th>@string.Format("{0} {1} {2} {3}", post.Pnombre, post.Snombre, post.Appat, post.Apmat)</th>
                         <th>@post.Email</th>
                         <th>
                             <a href="javascript:void(0)" onclick="Aprobar(@post.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
-                            <a href="@Url.Action("Calificaciones","User")?id=@post.IdUsuario"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
                         </th>
                     </tr>
                 }
@@ -126,6 +131,7 @@
 
 <br />
 <br /><br /><br /><br />
+<h2>Postulantes seleccionados</h2>
 @{
     List<Negocio.ClasesModelo.Usuario> selecionados = new Negocio.OperacionesProgramasEstudios().TraerAlumnosPostulantesSeleccionados(id);
     if (selecionados.Count > 0)
@@ -147,7 +153,7 @@
                         <th>@posts.Email</th>
                         <th>
                             <a href="javascript:void(0)" onclick="Aprobar(@posts.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
-                            <a href="@Url.Action("Calificaciones","User")?id=@posts.IdUsuario"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
+                            <a href="@Url.Action("Calificaciones","User")?id=@posts.IdUsuario&prog=@nom"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
                         </th>
                     </tr>
                 }
