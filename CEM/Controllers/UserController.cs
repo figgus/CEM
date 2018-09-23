@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -294,7 +295,37 @@ namespace CEM.Controllers
             return Json(res);
         }
 
-
-       
+        [HttpPost]
+        public JsonResult Calificar()
+        {
+            string res = "false";
+            try
+            {
+                OperacionesNota opnota = new OperacionesNota();
+                float[] notas = new float[4];
+                notas[0] = float.Parse(Request["nota1"], CultureInfo.InvariantCulture.NumberFormat);
+                notas[1] = float.Parse(Request["nota2"], CultureInfo.InvariantCulture.NumberFormat);
+                notas[2] = float.Parse(Request["nota3"], CultureInfo.InvariantCulture.NumberFormat);
+                notas[3] = float.Parse(Request["nota4"], CultureInfo.InvariantCulture.NumberFormat);
+                foreach (float num in notas)
+                {
+                    if (num>7 || num<1)
+                    {
+                        throw new Exception("Nota fuera de rango");
+                    }
+                }
+                int idPostu = new OperacionesPostulante().GetIdForUser( int.Parse(Request["idPostu"]));
+                if (!opnota.Calificar(idPostu, notas))
+                {
+                    throw new Exception("Error al insertar las notas");
+                }
+                res = "true";
+            }
+            catch (Exception e)
+            {
+                res = e.Message;
+            }
+            return Json(res);
+        }
     }
 }

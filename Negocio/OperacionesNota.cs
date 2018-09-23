@@ -28,6 +28,22 @@ namespace Negocio
             return res;
         }
 
+        public bool Calificar(int idPostu,float[] notas)//actualiza las cuatro notas del alumno
+        {
+            bool res = false;
+            if (notas.Length>4)
+            {
+                throw new Exception("el arreglo que contiene las notas tiene mas valores que los permitidos");
+            }
+            int i = 0;
+            foreach (Nota nota in this.TraeNotasDe(idPostu))
+            {
+                this.Actualizar(nota.idNotas,notas[i]);
+                i++;
+            }
+            return res;
+        }
+
         public List<Nota> TraerTodo()
         {
             List<Nota> res = new List<Nota>();
@@ -93,10 +109,10 @@ namespace Negocio
             return res;
         }
 
-        public bool Actualizar(int id, float calificacion)
+        public bool Actualizar(int idNota, float calificacion)
         {
             bool res = false;
-            string sql = string.Format("begin NOTAUPDATE({0},{1}); end;",calificacion,id);
+            string sql = string.Format("begin NOTAUPDATE({0},{1}); end;", calificacion, idNota);
             ConexionOracle.Ejecutar(sql);
             res = true;
             return res;

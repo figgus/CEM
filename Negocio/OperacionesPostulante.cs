@@ -84,6 +84,18 @@ namespace Negocio
             return new Postulante();
         }
 
+        public int GetIdForUser(int idUsuario)
+        {
+            foreach (Postulante pos in this.TraerTodo())
+            {
+                if (pos.IDUSUARIOFK==idUsuario)
+                {
+                    return pos.IDPOSTULANTE;
+                }
+            }
+            return 0;
+        }
+
 
         private bool EsRegular()
         {
