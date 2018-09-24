@@ -42,6 +42,7 @@ namespace CEM.Controllers
             {
                 if (usu.Username==user && usu.Password==usu.Password)
                 {
+                    Session["usuario"] = usu;//quizas borrar
                     Session["idUsuario"]=usu.IdUsuario;
                     Session["username"] = usu.Username;
                     Session["tipo"] = usu.TipoUsuario as int?;

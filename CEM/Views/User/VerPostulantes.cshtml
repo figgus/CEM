@@ -74,7 +74,8 @@
                 //alert(result);
                 if (result === 'true') {
                     toastr.success('Postulante seleccionado');
-                    //$("#PostuT").load(location.href + " #PostuT>*", "");
+                    $("#PostuT").load(location.href + " #PostuT>*", "");
+                    $("#PostuTS").load(location.href + " #PostuTS>*", "");
                 }
 
                 else {
@@ -145,19 +146,28 @@
                 </tr>
             </thead>
             @{
+                Negocio.ClasesModelo.Usuario usu = Session["usuario"] as Negocio.ClasesModelo.Usuario;
                 foreach (Negocio.ClasesModelo.Usuario posts in selecionados)
                 {
+
 
                     <tr>
                         <th>@string.Format("{0} {1} {2} {3}", posts.Pnombre, posts.Snombre, posts.Appat, posts.Apmat)</th>
                         <th>@posts.Email</th>
+
                         <th>
-                            <a href="javascript:void(0)" onclick="Aprobar(@posts.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
-                            <a href="@Url.Action("Calificaciones","User")?id=@posts.IdUsuario&prog=@nom"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
+                            @{ if (usu.TipoUsuario == 3)
+                                {
+                                    <a href="javascript:void(0)" onclick="Aprobar(@posts.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
+                                }
+                            }
+
+                            <a href="@Url.Action("Calificaciones", "User")?id=@posts.IdUsuario&prog=@nom"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
                         </th>
                     </tr>
+                        
                 }
-            }
+                }
         </table>
     }
     else

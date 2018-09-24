@@ -88,6 +88,11 @@ namespace CEM.Controllers
             return View();
         }
 
+        public ActionResult AsignarCentro()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult BorrarUsuario(int idBorrar)
         {
@@ -214,6 +219,8 @@ namespace CEM.Controllers
             return View("AgregarPrograma");
         }
 
+
+
         [HttpPost]
         public JsonResult PublicarPrograma(int idPrograma)
         {
@@ -239,9 +246,11 @@ namespace CEM.Controllers
         }
 
         [HttpPost]
-        public JsonResult UnirseCel(int idCentro, int idPrograma)
+        public JsonResult UnirseCel()
         {
             string res = "false";
+            int idCentro=int.Parse(Request["nomCen"]); 
+            int idPrograma= int.Parse(Request["idProg"]);
             OperacionesProgramasEstudios oprog = new OperacionesProgramasEstudios();
             if (oprog.AsignarCentro(idCentro, idPrograma))
             {
@@ -307,13 +316,13 @@ namespace CEM.Controllers
                 notas[1] = float.Parse(Request["nota2"], CultureInfo.InvariantCulture.NumberFormat);
                 notas[2] = float.Parse(Request["nota3"], CultureInfo.InvariantCulture.NumberFormat);
                 notas[3] = float.Parse(Request["nota4"], CultureInfo.InvariantCulture.NumberFormat);
-                foreach (float num in notas)
-                {
-                    if (num>7 || num<1)
-                    {
-                        throw new Exception("Nota fuera de rango");
-                    }
-                }
+                //foreach (float num in notas)
+                //{
+                //    if (num>7 || num<1)
+                //    {
+                //        throw new Exception("Nota fuera de rango");
+                //    }
+                //}
                 int idPostu = new OperacionesPostulante().GetIdForUser( int.Parse(Request["idPostu"]));
                 if (!opnota.Calificar(idPostu, notas))
                 {

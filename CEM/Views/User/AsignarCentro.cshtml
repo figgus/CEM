@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "AsignarCentro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    $(document).ready(
+        function () {
+            $("#msj").hide();
+            $("#btnGuardar").click(
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("UnirseCel", "User")',
+                        type: 'POST',
+                        data: $("#formulario").serialize(),
+                        success: function (result) {
+                            //alert(result);
+                            if (result === 'true') {
+                                toastr.success('Centro asignado con exito', 'ButtonClick', 'positionclass = "toast-bottom-full-width"');
+                                setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
+                            }
+                            else {
+                                alert('problema');
+                            }
+                        }
+                    }
+                    );
+                }
+
+            );
+        }
+    );
+
+
+
+</script>
+<h2>AsignarCentro</h2>
+
+<center>
+    <h2>Asignar centro</h2>
+    <form id="formulario">
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>nombre del centro de estudios</td>
+                <td><select id="nomCen" name="nomCen">
+                        @{ 
+                            Negocio.OperacionesInstitucion opin = new Negocio.OperacionesInstitucion();
+                            foreach (Negocio.ClasesModelo.Institucion insti in opin.TraerTodo())
+                            {
+                                <option value="@insti.idInstitucion">@insti.nomInstitucion</option>
+                            }
+                        }
+                    </select>
+                <input type="hidden" id="idProg" name="idProg" value="@Request["idProg"]" />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="button" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Guardar" /></td>
+            </tr>
+        </table>
+    </form>
+</center>

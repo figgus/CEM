@@ -31,8 +31,8 @@
                                 $("#msj").show(2000).delay(2000).fadeOut(2000);
                             }
                         }
-                    }
-                    );
+             }
+            );
         } 
     }
 
@@ -70,7 +70,7 @@
         <button class="tablinks" onclick="openCity(event, 'Centros')">Centros</button>
         <button class="tablinks" onclick="openCity(event, 'PDE')">Programas de estudios</button>
         <button class="tablinks" onclick="openCity(event, 'Usuarios')">Usuarios</button>
-        <button class="tablinks" onclick="openCity(event, 'Productos')">Productos</button>
+        <button class="tablinks" onclick="openCity(event, 'calificaciones')">Consultar calificaciones</button>
         <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
     </div>
 </center>
@@ -191,6 +191,8 @@
             List<Negocio.ProgramaEstudios> res = opprog.TraerTodo();
             foreach (Negocio.ProgramaEstudios pro in res)
             {
+                bool publish = pro.PUBLICADO == '1';
+                bool asignado = pro.IDCENTRO != null;
         <tr>
             <th>@pro.IDPROGRAMAESTUDIO</th>
             <th>@pro.NOMBREPROGRAMA</th>
@@ -204,13 +206,54 @@
             <th>@pro.COSTOINCLUIDO</th>
             <th>@pro.PUBLICADO</th>
             <th>@pro.FECHAPUBLICACION </th>
-            <th><a href="javascript:void(0)" onclick="publicar(@pro.IDPROGRAMAESTUDIO)"> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a></th>
+            <th>
+                <a href="javascript:void(0)" onclick="publicar(@pro.IDPROGRAMAESTUDIO)"> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a>
+                @if (!publish && !asignado)
+                {
+                    <a href="@Url.Action("AsignarCentro", "User")?idProg=@pro.IDPROGRAMAESTUDIO">Asignar</a>
+                }
+
+            </th>
+
         </tr>
                     }
                     }
             </table>
 </div>
 
+<div id="calificaciones" class="tabcontent">
+    <h3> Seleccione un curso </h3>
+    <table id="TProgramas" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre del programa</th>
+                <th>Descripcion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        @{
+            Negocio.OperacionesProgramasEstudios oprog = new Negocio.OperacionesProgramasEstudios();
+            List<Negocio.ProgramaEstudios> lista1 = oprog.TraerTodo();
+            foreach (Negocio.ProgramaEstudios prog in lista1)
+            {
+            
+                <tr>
+                    <th>@oprog.TraerNombrePorId(prog.IDPROGRAMAESTUDIO)</th>
+                    <th>@prog.DESCRIPCION</th>
+                    <th>
+                        <form action="@Url.Action("VerPostulantes","User")" method="post">
+                            <input type="hidden" value="@prog.IDPROGRAMAESTUDIO" id="id" name="id" />
+                            <input type="hidden" value="@prog.NOMBREPROGRAMA" id="nom" name="nom" />
+                            <input class="btn btn-link" type="submit" value="Ver Postulantes" />
+                        </form>
+                        
+                   </th>
+                </tr>
+                
+            }
+        }
+        </table>
+</div>
 <div id="Mensajes" class="tabcontent">
     
 </div>

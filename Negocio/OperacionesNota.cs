@@ -41,6 +41,7 @@ namespace Negocio
                 this.Actualizar(nota.idNotas,notas[i]);
                 i++;
             }
+            res = true;
             return res;
         }
 
@@ -112,7 +113,7 @@ namespace Negocio
         public bool Actualizar(int idNota, float calificacion)
         {
             bool res = false;
-            string sql = string.Format("begin NOTAUPDATE({0},{1}); end;", calificacion, idNota);
+            string sql = string.Format("begin NOTAUPDATE({0},{1}); end;", calificacion.ToString().Replace(",","."), idNota);
             ConexionOracle.Ejecutar(sql);
             res = true;
             return res;

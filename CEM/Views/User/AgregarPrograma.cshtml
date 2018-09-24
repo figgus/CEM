@@ -9,6 +9,7 @@
             $("#msj").hide();
             $("#btnGuardar").click(
                 function () {
+                    toastr.success('¡¡Programa creado exitosamente!!');
                     setTimeout(function () { MostrarExito() }, 4000);
                 }
 
@@ -18,7 +19,6 @@
 
 
     function MostrarExito() {
-        $("#msj").show(2000).delay(2000).fadeOut(2000);
         $('#formulario').submit();
     }
 </script>

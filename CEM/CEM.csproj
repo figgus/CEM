@@ -386,6 +386,7 @@
     <Content Include="Views\User\VerAntecedentes.cshtml" />
     <Content Include="Views\User\VerPostulantes.cshtml" />
     <Content Include="Views\User\Calificaciones.cshtml" />
+    <Content Include="Views\User\AsignarCentro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
