@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Negocio;
 using Negocio.ClasesModelo;
 
@@ -42,10 +43,78 @@ namespace CEM.Controllers
             {
                 if (usu.Username==user && usu.Password==usu.Password)
                 {
-                    Session["usuario"] = usu;//quizas borrar
+                    Session["usuario"] = usu;
                     Session["idUsuario"]=usu.IdUsuario;
                     Session["username"] = usu.Username;
                     Session["tipo"] = usu.TipoUsuario as int?;
+
+                    //autentica al usuario y crea su rol
+                    FormsAuthentication.SetAuthCookie(user, false);
+                    string identity = string.Empty;
+                    if (usu.TipoUsuario == 1)
+                    {
+                        identity = "admin";
+                        if (!Roles.RoleExists(identity))
+                        {
+                            Roles.CreateRole(identity);
+                        }
+                        if (!Roles.IsUserInRole(user, identity))
+                        {
+                            Roles.AddUserToRole(user, identity);
+                        }
+                    }
+                    else if (usu.TipoUsuario == 2)
+                    {
+                        identity = "alumno";
+
+                        if (!Roles.RoleExists(identity))
+                        {
+                            Roles.CreateRole(identity);
+                        }
+                        if (!Roles.IsUserInRole(user, identity))
+                        {
+                            Roles.AddUserToRole(user, identity);
+                        }
+                    }
+                    else if (usu.TipoUsuario == 3)
+                    {
+                        identity = "cem";
+
+                        if (!Roles.RoleExists(identity))
+                        {
+                            Roles.CreateRole(identity);
+                        }
+                        if (!Roles.IsUserInRole(user, identity))
+                        {
+                            Roles.AddUserToRole(user, identity);
+                        }
+                    }
+                    else if (usu.TipoUsuario == 4)
+                    {
+                        identity = "cel";
+
+                        if (!Roles.RoleExists(identity))
+                        {
+                            Roles.CreateRole(identity);
+                        }
+                        if (!Roles.IsUserInRole(user, identity))
+                        {
+                            Roles.AddUserToRole(user, identity);
+                        }
+                    }
+                    else if (usu.TipoUsuario == 5)
+                    {
+                        identity = "familia";
+
+                        if (!Roles.RoleExists(identity))
+                        {
+                            Roles.CreateRole(identity);
+                        }
+                        if (!Roles.IsUserInRole(user, identity))
+                        {
+                            Roles.AddUserToRole(user, identity);
+                        }
+                    }
                     return "true"+usu.TipoUsuario;
                 }
             }
@@ -92,6 +161,14 @@ namespace CEM.Controllers
             return Json(res);
         }
 
+        public ActionResult CerrarSesion()
+        {
+            FormsAuthentication.SignOut();
+            Session["idUsuario"] = null;
+            Session["username"] = null;
+            Session["tipo"] = null;
+            return View("Login");
+        }
 
     }
 

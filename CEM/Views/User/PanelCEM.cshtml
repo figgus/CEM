@@ -75,8 +75,8 @@
 
 
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Postulantes')">Ver postulantes</button>
-        <button class="tablinks" onclick="openCity(event, 'Programas')">Programas impartidos</button>
+        <button class="tablinks" onclick="openCity(event, 'Postulantes')">Programas impartidos</button>
+        
     </div>
 </center>
 <!-- Tab content -->
@@ -126,13 +126,15 @@
                                     <input type="hidden" value="@prog.IDPROGRAMAESTUDIO" id="id" name="id" />
                                     <input type="hidden" value="@prog.NOMBREPROGRAMA" id="nom" name="nom" />
                                     <input class="btn btn-link" type="submit" value="Ver Postulantes" />
-                                </form>
-                                @{
-                                    if (isPublicado)
-                                    {
-                                        <a href="javascript:void(0)" onclick="publicar(@prog.IDPROGRAMAESTUDIO)"> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a>
+                                    @{
+                                        if (!isPublicado)
+                                        {
+                                            <a href="javascript:void(0)" onclick="publicar(@prog.IDPROGRAMAESTUDIO)"> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a>
+
+                                        }
                                     }
-                                }
+                                </form>
+                                
                             </th>
                         </tr>
                 }

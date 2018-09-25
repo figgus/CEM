@@ -10,6 +10,40 @@
 <script src="~/Scripts/js/jsTabs.js"></script>
 <script src="~/Scripts/js/jsDataTableAdmin.js"></script>
 <script type="text/javascript">
+    $(document).ready(
+        function () {
+            $('#TProgramas').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+        }
+    );
+
+
+
     function BorrarUsuario(id) {
         var txt;
         var r = confirm("Seguro que quiere borrar este usuario");
@@ -70,7 +104,7 @@
         <button class="tablinks" onclick="openCity(event, 'Centros')">Centros</button>
         <button class="tablinks" onclick="openCity(event, 'PDE')">Programas de estudios</button>
         <button class="tablinks" onclick="openCity(event, 'Usuarios')">Usuarios</button>
-        <button class="tablinks" onclick="openCity(event, 'calificaciones')">Consultar calificaciones</button>
+        <button class="tablinks" onclick="openCity(event, 'calificaciones')">Informacion postulantes</button>
         <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
     </div>
 </center>
@@ -208,9 +242,10 @@
             <th>@pro.FECHAPUBLICACION </th>
             <th>
                 <a href="javascript:void(0)" onclick="publicar(@pro.IDPROGRAMAESTUDIO)"> <img src="~/Scripts/images/publicar.png" width="20" height="20" /></a>
-                @if (!publish && !asignado)
+                @if ( !asignado)
                 {
-                    <a href="@Url.Action("AsignarCentro", "User")?idProg=@pro.IDPROGRAMAESTUDIO">Asignar</a>
+                    <a href="@Url.Action("AsignarCentro", "User")?idProg=@pro.IDPROGRAMAESTUDIO"><img src="~/Scripts/images/asignar.png" width="25" height="25" /></a>
+                  
                 }
 
             </th>

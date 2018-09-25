@@ -188,6 +188,7 @@
     <Content Include="Scripts\css\estilosTabs.css" />
     <Content Include="Scripts\css\main_styles.css" />
     <Content Include="Scripts\css\responsive.css" />
+    <Content Include="Scripts\images\asignar.png" />
     <Content Include="Scripts\images\calificar.png" />
     <Content Include="Scripts\images\cem.jpg" />
     <Content Include="Scripts\images\delete.png" />

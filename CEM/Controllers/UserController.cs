@@ -10,6 +10,7 @@ using Negocio.ClasesModelo;
 
 namespace CEM.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         // GET: User
@@ -18,76 +19,92 @@ namespace CEM.Controllers
             return View();
         }
 
+        [Authorize (Roles ="admin")]
         public ActionResult PanelAdmin()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult AgregarUsuario()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult EditarUsuario()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult AgregarCentro()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin,cem")]
         public ActionResult AgregarPrograma()
         {
             return View();
         }
 
+        [Authorize(Roles = "alumno")]
         public ActionResult PanelAlumno()
         {
             return View();
         }
 
+        [Authorize(Roles = "cel")]
         public ActionResult PanelCEL()
         {
             return View();
         }
 
+        [Authorize(Roles = "cem")]
         public ActionResult PanelCEM()
         {
             return View();
         }
 
+        [Authorize(Roles = "familia")]
         public ActionResult PanelFamilia()
         {
             return View();
         }
 
+        //quizas borrar
         public ActionResult NotasAdmin()
         {
             return View();
         }
 
+        [Authorize(Roles = "familia,admin")]
         public ActionResult CargarAntecedente()
         {
             return View();
         }
 
+
+        [Authorize(Roles = "admin,alumno,cel,cem")]
         public ActionResult VerAntecedentes()
         {
             return View();
         }
 
+        [Authorize(Roles = "cem,admin")]
         public ActionResult VerPostulantes()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin,alumno,cel,cem")]
         public ActionResult Calificaciones()
         {
             return View();
         }
 
+        [Authorize (Roles ="admin,cel")]
         public ActionResult AsignarCentro()
         {
             return View();
@@ -104,6 +121,7 @@ namespace CEM.Controllers
             }
             return Json(res);
         }
+
 
         [HttpPost]
         public JsonResult CrearUsuarioPanel()
