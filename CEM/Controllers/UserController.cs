@@ -110,6 +110,12 @@ namespace CEM.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
+        public ActionResult PostularAlumno()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult BorrarUsuario(int idBorrar)
         {
@@ -280,23 +286,31 @@ namespace CEM.Controllers
         [HttpPost]
         public ActionResult SubirAntecedente()
         {
-            Antecedente ante = new Antecedente();
-            ante.tipoDoc = Request["tipo"].ToString();
-            var a = Request.Files["archivo"];
-
-            OperacionesAntecedentes opante = new OperacionesAntecedentes();
-            
-            if (a != null && !string.IsNullOrEmpty(a.FileName))
+            try
             {
-                var file = Request.Files[0];
-                var path = Path.Combine(Server.MapPath("~/Scripts/images/Antecedentes/"), file.FileName);
-                file.SaveAs(path);
-            }
-            ante.docadjunto = a.FileName;
-            ante.idUsuarioFK = int.Parse(Session["idUsuario"].ToString());
-            opante.Insertar(ante);
+                Antecedente ante = new Antecedente();
+                ante.tipoDoc = Request["tipo"].ToString();
+                var a = Request.Files["archivo"];
 
-            return View("PanelFamilia");
+                OperacionesAntecedentes opante = new OperacionesAntecedentes();
+
+                if (a != null && !string.IsNullOrEmpty(a.FileName))
+                {
+                    var file = Request.Files[0];
+                    var path = Path.Combine(Server.MapPath("~/Scripts/images/Antecedentes/"), file.FileName);
+                    file.SaveAs(path);
+                }
+                ante.docadjunto = a.FileName;
+                ante.idUsuarioFK = int.Parse(Session["idUsuario"].ToString());
+                opante.Insertar(ante);
+
+            }
+            catch (Exception e)
+            {
+                return Redirect(Url.Action("CargarAntecedente","User") + "?err=1");
+            }
+            
+            return Redirect(Url.Action("PanelFamilia", "User"));
         }
 
         [HttpPost]

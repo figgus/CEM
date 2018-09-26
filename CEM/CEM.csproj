@@ -274,6 +274,7 @@
     <Content Include="Scripts\images\team_4.jpg" />
     <Content Include="Scripts\images\team_background.jpg" />
     <Content Include="Scripts\images\toggle01.png" />
+    <Content Include="Scripts\images\TomarRamo.png" />
     <Content Include="Scripts\images\video.jpg" />
     <Content Include="Scripts\images\video_play.png" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -388,6 +389,7 @@
     <Content Include="Views\User\VerPostulantes.cshtml" />
     <Content Include="Views\User\Calificaciones.cshtml" />
     <Content Include="Views\User\AsignarCentro.cshtml" />
+    <Content Include="Views\User\PostularAlumno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

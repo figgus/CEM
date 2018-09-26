@@ -7,31 +7,20 @@
     $(document).ready(
         function () {
             $("#msj").hide();
-            @*$("#btnGuardar").click(
-                function () {
-                    $.ajax({
-                        url: '@Url.Action("CrearCentro", "User")',
-                        type: 'POST',
-                        data: $("#formulario").serialize(),
-                        success: function (result) {
-                            //alert(result);
-                            if (result === 'true') {
-                                $("#msj").show(2000).delay(2000).fadeOut(2000);
-                                setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
-                            }
-                            else {
-                                alert('problema');
-                            }
-                        }
-                    }
-                    );
-                }
-
-            );*@
+            
         }
     );
 </script>
 <body>
+    @{ 
+        int val;
+        if (int.TryParse(Request["err"],out val))
+        {
+            <script type="text/javascript">
+                toastr.error('Compruebe que el archivo o el tipo de antecendente ingresado sea valido');
+            </script>
+        }
+    }
     <div id="msj" class="alert alert-success">
         Centro registrado con exito
     </div>

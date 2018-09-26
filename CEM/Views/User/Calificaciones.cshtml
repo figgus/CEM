@@ -76,7 +76,6 @@
     Negocio.ClasesModelo.Usuario usuarioSession = Session["usuario"] as Negocio.ClasesModelo.Usuario;
     int id = int.Parse(Request["id"]);
     Negocio.ClasesModelo.Usuario user = new Negocio.OperacionesUsuarios().Traer(id);
-
 }
 <h2>Notas de @string.Format("{0} {1} {2} {3}", user.Pnombre, user.Snombre, user.Appat, user.Apmat) en @Request["prog"]</h2>
 <form id="formulario">

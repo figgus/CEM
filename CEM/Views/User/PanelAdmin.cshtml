@@ -158,8 +158,17 @@
                     <th>@user.TipoUsuario</th>
                     <th>@user.AlumnoRegular</th>
                     <th>@user.IdCarrera</th>
-                    <th><a href="javascript:void(0)" onclick="BorrarUsuario(@user.IdUsuario)"> <img src="~/Scripts/images/delete.png" /></a>
-                    <a href="@Url.Action("EditarUsuario", "User")?id=@user.IdUsuario&user=@user.Username&pass=@user.Password&pnom=@user.Pnombre&snom=@user.Snombre&apat=@user.Appat&amat=@user.Apmat&email=@user.Email&movil=@user.FonoCelular&fijo=@user.FonoFijo&tipo=@user.TipoUsuario&aregu=@user.AlumnoRegular&carrera=@user.IdCarrera"><img src="~/Scripts/images/edit.png" /></a></th>
+                    <th>
+                        <a href="javascript:void(0)" onclick="BorrarUsuario(@user.IdUsuario)"> <img src="~/Scripts/images/delete.png" /></a>
+                        <a href="@Url.Action("EditarUsuario", "User")?id=@user.IdUsuario&user=@user.Username&pass=@user.Password&pnom=@user.Pnombre&snom=@user.Snombre&apat=@user.Appat&amat=@user.Apmat&email=@user.Email&movil=@user.FonoCelular&fijo=@user.FonoFijo&tipo=@user.TipoUsuario&aregu=@user.AlumnoRegular&carrera=@user.IdCarrera"><img src="~/Scripts/images/edit.png" /></a>
+                        @{
+                            if (user.TipoUsuario == 2)
+                            {
+                                <a href="@Url.Action("PostularAlumno", "User")?id=@user.IdUsuario"><img src="~/Scripts/images/TomarRamo.png" width="30" height="14" /></a>
+                            }
+                        }
+
+                    </th>
                 </tr>
             }
         }
@@ -247,7 +256,6 @@
                     <a href="@Url.Action("AsignarCentro", "User")?idProg=@pro.IDPROGRAMAESTUDIO"><img src="~/Scripts/images/asignar.png" width="25" height="25" /></a>
                   
                 }
-
             </th>
 
         </tr>
