@@ -58,6 +58,7 @@
     <Compile Include="OperacionesNota.cs" />
     <Compile Include="OperacionesPostulante.cs" />
     <Compile Include="OperacionesProgramasEstudios.cs" />
+    <Compile Include="OperacionesRelacionesAlumnoFamilia.cs" />
     <Compile Include="OperacionesTipoUsuario.cs" />
     <Compile Include="OperacionesUsuarios.cs" />
     <Compile Include="ClasesModelo\ProgramaEstudios.cs" />

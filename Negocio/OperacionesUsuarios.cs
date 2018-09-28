@@ -93,7 +93,7 @@ namespace Negocio
 
         }
 
-        public List<Usuario> TraerFamilias()
+        public List<Usuario> TraerFamilias()//
         {
             List<Usuario> res=new List<Usuario>();
             List<Usuario> lista = this.TraerTodo();
@@ -102,6 +102,19 @@ namespace Negocio
                 if (usu.TipoUsuario==5)
                 {
                     res.Add(usu);
+                }
+            }
+            return res;
+        }
+
+        public List<Usuario> TraerFamiliasAsociadas(int idCentro)//trae familais asociadas a un centro de estudios
+        {
+            List<Usuario> res = new List<Usuario>();
+            foreach (Usuario user in this.TraerFamilias())
+            {
+                if (user.idInstitucion==idCentro)
+                {
+                    res.Add(user);
                 }
             }
             return res;

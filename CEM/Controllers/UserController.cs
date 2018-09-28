@@ -258,14 +258,26 @@ namespace CEM.Controllers
         public JsonResult PostularAlumno(int idAlumno,int idPrograma)
         {
             string res = "false";
-            OperacionesPostulante opost = new OperacionesPostulante();
-            Postulante postulante = new Postulante();
-            postulante.ESTADOPOSTULACION = "PENDIENTE";
-            postulante.IDPROGRAMAESTUDIOFK = idPrograma;
-            postulante.IDUSUARIOFK = idAlumno;
-            opost.Insertar(postulante);
-            
-            res = "true";
+            try
+            {
+                OperacionesPostulante opost = new OperacionesPostulante();
+                Postulante postulante = new Postulante();
+                postulante.ESTADOPOSTULACION = "PENDIENTE";
+                postulante.IDPROGRAMAESTUDIOFK = idPrograma;
+                postulante.IDUSUARIOFK = idAlumno;
+                if (opost.YaPostulo(postulante.IDUSUARIOFK, postulante.IDPROGRAMAESTUDIOFK))
+                {
+                    throw new Exception("No puede postular pues ya tiene una postulacion pendiente");
+                }
+                if (opost.Insertar(postulante))
+                {
+                    res = "true";
+                }
+            }
+            catch (Exception e)
+            {
+                res = e.Message;
+            }
             return Json(res);
         }
 
@@ -361,6 +373,34 @@ namespace CEM.Controllers
                     throw new Exception("Error al insertar las notas");
                 }
                 res = "true";
+            }
+            catch (Exception e)
+            {
+                res = e.Message;
+            }
+            return Json(res);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult SeleccionarFamilia(int idAlumno,int idFamilia)
+        {
+            string res = "false";
+            try
+            {
+                OperacionesRelacionesAlumnoFamilia oprel = new OperacionesRelacionesAlumnoFamilia();
+                if (oprel.isRelacionado(idAlumno) || oprel.isRelacionado(idFamilia))
+                {
+                    throw new Exception("No puede realizar esta accion, intente elegir otro postulante");
+                }
+                
+                RelacionAlumnoFamilia rel = new RelacionAlumnoFamilia();
+                rel.idAlumnoFK = idAlumno;
+                rel.idFamiliaFK = idFamilia;
+                if (oprel.Insertar(rel)){
+                    res = "true";
+                }
             }
             catch (Exception e)
             {

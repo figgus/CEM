@@ -88,7 +88,43 @@
 
 <div id="Solicitudes" class="tabcontent">
     <h3>Lista de solicitudes de alojamiento para estudiantes</h3>
-    <form action="@Url.Action("NotasAdmin", "User")" method="post">
-        
-    </form>
+    @{ 
+        using (Negocio.OperacionesRelacionesAlumnoFamilia opalf=new Negocio.OperacionesRelacionesAlumnoFamilia())
+        {
+            int idThisUsuario;
+            int.TryParse(Session["idUsuario"].ToString(),out idThisUsuario);
+            var listaSolicitudes = opalf.TraerTodo().Where(p=>p.idFamiliaFK==idThisUsuario);
+            
+
+            if (listaSolicitudes.ToList<Negocio.ClasesModelo.RelacionAlumnoFamilia>().Count>0)
+            {
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nombre solicitante</th>
+                             <th>Institucion del solicitante</th>
+                             <th>Acciones</th>
+                         </tr>
+                     </thead>
+                     @{
+                         foreach (Negocio.ClasesModelo.RelacionAlumnoFamilia relacion in listaSolicitudes)
+                         {
+                             <tr>
+                                 <th>@relacion.idAlumnoFK</th>
+                                 <th></th>
+                                 <th>Acciones</th>
+                             </tr>
+                         }
+                     }
+                 
+                 </table>
+            }
+            else
+            {
+                <label>No hay solicitudes pendientes</label>
+            }
+        }
+    }
+
+
 </div>

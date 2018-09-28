@@ -40,12 +40,65 @@
                 },
                 aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
             });
+
+            $('#TFamilias').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+
+
         }
     );
 
-    function GoToMisNotas() {
-        window.location.href = "@Url.Action("Calificaciones", "User")";
+
+    function SeleccionarFamilia(idAlumno, idFamilia) {
+
+        var params = { 'idAlumno': idAlumno, 'idFamilia': idFamilia};
+        $.ajax({
+             url: '@Url.Action("SeleccionarFamilia", "User")',
+            type: 'POST',
+            data: params,
+            success: function (result) {
+                //alert(result);
+                if (result === 'true') {
+                    toastr.success('Solicitud enviada espere confirmacion');
+                   
+                }
+            
+                else {
+                    toastr.error(result);
+                }
+            },
+            error: function () {
+                alert('Ajax arroja error');
+            }
+        }
+        );
     }
+
 </script>
 
 <center>
@@ -81,15 +134,32 @@
         @{
             List<Negocio.ClasesModelo.Postulante> list = new Negocio.OperacionesPostulante().TraerTodo();
             Negocio.OperacionesProgramasEstudios oprog = new Negocio.OperacionesProgramasEstudios();
+            bool postulo = false;
+            int idProg=0;
             foreach (Negocio.ClasesModelo.Postulante post in list)
             {
                 if (post.IDUSUARIOFK == int.Parse(Session["idUsuario"].ToString()))
                 {
+                    idProg = post.IDPROGRAMAESTUDIOFK;
+                    postulo = true;
                     <tr>
                         <th>@oprog.TraerNombrePorId(post.IDPROGRAMAESTUDIOFK)</th>
-                        <th>  <font color="green">@post.ESTADOPOSTULACION</font>   </th>
+                        <th>
+                            @{
+                        if (post.ESTADOPOSTULACION == "APROBADO")
+                        {
+                                    <font color="green">@post.ESTADOPOSTULACION</font>
+                                }
+                        else
+                        {
+                                    <font color="red">@post.ESTADOPOSTULACION</font>
+                                }
+                    }
+
+                        </th>
                         <th>@post.FECHAPOSTULACION</th>
-                        
+
+
                     </tr>
                 }
             }
@@ -103,7 +173,7 @@
     <a href="@Url.Action("ProgramasEstudio", "Home")">
         
     </a>
-    <table id="TProgramas" style="width:100%">
+    <table id="TFamilias" style="width:100%">
         <thead>
             <tr>
                 <th>Nombre completo</th>
@@ -113,17 +183,31 @@
             </tr>
         </thead>
         @{
-            List<Negocio.ClasesModelo.Usuario> lista = new Negocio.OperacionesUsuarios().TraerFamilias();
-            foreach (Negocio.ClasesModelo.Usuario usu in lista)
+            if (postulo)
             {
-                <tr>
-                    <th>@string.Format("{0} {1} {2} {3}",usu.Pnombre,usu.Snombre,usu.Appat,usu.Apmat)</th>
-                    <th>@usu.FonoCelular</th>
-                    <th>@usu.Email</th>
-                    <th> <a href="@Url.Action("VerAntecedentes", "User")?id=@usu.IdUsuario">Ver antecedentes</a> </th>
-                </tr>
+                int idCentro = oprog.TraerPorId(idProg).IDCENTRO?? default(int);
+                List<Negocio.ClasesModelo.Usuario> lista = new Negocio.OperacionesUsuarios().TraerFamilias();
+                var familias = lista.Where(i=>i.idInstitucion==41);
+                Negocio.ProgramaEstudios programa=oprog.TraerPorId(idProg);
+                foreach (Negocio.ClasesModelo.Usuario usu in lista)
+                {
+                    int idPropio = 0;
+                    int.TryParse(Session["idUsuario"].ToString(), out idPropio);
+                    <tr>
+                        <th>@string.Format("{0} {1} {2} {3}", usu.Pnombre, usu.Snombre, usu.Appat, usu.Apmat)</th>
+                        <th>@usu.FonoCelular</th>
+                        <th>@usu.Email</th>
+                        <th> <a href="@Url.Action("VerAntecedentes", "User")?id=@usu.IdUsuario">Ver antecedentes</a> <a href="javascript:void(0)" onclick="SeleccionarFamilia(@usu.IdUsuario,@idPropio)"><img src="~/Scripts/images/select.png"  width="20" height="20"/></a> </th>
+                    </tr>
+                }
             }
         }
 
     </table>
+    @{ 
+        if (!postulo)
+        {
+            <label>Debe postular y haber sido seleccionado para acceder a esta funcion</label>
+        }
+    }
 </div>

@@ -79,6 +79,18 @@ namespace Negocio
             return dt.Rows[0]["NOMBREPROGRAMA"].ToString();
         }
 
+        public ProgramaEstudios TraerPorId(int id)
+        {
+            foreach (ProgramaEstudios prog in this.TraerTodo())
+            {
+                if (prog.IDPROGRAMAESTUDIO==id)
+                {
+                    return prog;
+                }
+            }
+            return new ProgramaEstudios();
+        }
+
         public bool AsignarCentro(int idcentro,int idPrograma)
         {
             bool res = true;
@@ -139,6 +151,8 @@ namespace Negocio
             }
             return usus;
         }
+
+        
 
     }
 }

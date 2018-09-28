@@ -102,11 +102,11 @@ namespace Negocio
             return true;
         }
 
-        private bool YaPostulo(int idAlu,int idProg)
+        public bool YaPostulo(int idAlu,int idProg)
         {
             foreach (Postulante pos in this.TraerTodo())
             {
-                if (pos.IDUSUARIOFK==idAlu && pos.IDPROGRAMAESTUDIOFK==idProg)
+                if (pos.IDUSUARIOFK==idAlu)
                 {
                     return true;
                 }
