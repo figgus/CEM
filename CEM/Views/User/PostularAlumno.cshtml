@@ -49,11 +49,14 @@
     }
 
     function Postular() {
-
-
         var idUsu=@Request["id"];
         var idProg = $("input[type='radio'][name='check']:checked").val();
-        var params = { 'idAlumno': idUsu, 'idPrograma': idProg };
+        //alert(idProg);
+        if (idProg== undefined) {
+            toastr.error('Tiene que seleccionar algun programa de estudios');
+        }
+        else {
+            var params = { 'idAlumno': idUsu, 'idPrograma': idProg };
          $.ajax({
                  url: '@Url.Action("PostularAlumno", "User")',
              type: 'POST',
@@ -61,15 +64,17 @@
              success: function (result) {
                  //alert(result);
                  if (result === 'true') {
-                     toastr.success('Centro asignado con exito', 'ButtonClick', 'positionclass = "toast-bottom-full-width"');
+                     toastr.success('Postulacion realizada con exito');
                      setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
                  }
                  else {
-                     alert('problema');
+                     toastr.error(result);
                  }
              }
          }
          );
+        }
+        
     }
 
 </script>

@@ -111,6 +111,7 @@
         <form action="@Url.Action("Calificaciones", "User")" method="post"> <button class="tablinks" onclick="GoToMisNotas()">Ver notas</button> <input type="hidden" id="id" name="id" value="@Session["idUsuario"]" /></form>
         <button class="tablinks" onclick="openCity(event, 'Programas')">Ver programas de estudios</button>
         <button class="tablinks" onclick="openCity(event, 'Familias')">Seleccionar familia</button>
+        <button class="tablinks" onclick="openCity(event, 'Certificados')">Certificados</button>
     </div>
 </center>
 <!-- Tab content -->
@@ -210,4 +211,8 @@
             <label>Debe postular y haber sido seleccionado para acceder a esta funcion</label>
         }
     }
+</div>
+
+<div id="Certificados">
+    asd
 </div>

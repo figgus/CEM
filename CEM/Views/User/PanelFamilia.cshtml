@@ -44,6 +44,30 @@
             });
         }
     );
+
+    function ConfirmarSeleccion(idFamilia,idRelacion) {
+        var params = { 'idFamilia': idFamilia, 'idRelacion': idRelacion};
+        $.ajax({
+             url: '@Url.Action("ConfirmarSeleccion", "User")',
+            type: 'POST',
+            data: params,
+            success: function (result) {
+                //alert(result);
+                if (result === 'true') {
+                    toastr.success('Se ha confirmado con exito');
+                   
+                }
+            
+                else {
+                    toastr.error(result);
+                }
+            },
+            error: function () {
+                alert('Ajax arroja error');
+            }
+        }
+        );
+    }
 </script>
 <center>
     <h2>PanelFamilia</h2>
@@ -93,9 +117,8 @@
         {
             int idThisUsuario;
             int.TryParse(Session["idUsuario"].ToString(),out idThisUsuario);
-            var listaSolicitudes = opalf.TraerTodo().Where(p=>p.idFamiliaFK==idThisUsuario);
+            var listaSolicitudes = opalf.TraerTodo().Where(p=>p.idAlumnoFK==idThisUsuario);
             
-
             if (listaSolicitudes.ToList<Negocio.ClasesModelo.RelacionAlumnoFamilia>().Count>0)
             {
                  <table>
@@ -112,7 +135,7 @@
                              <tr>
                                  <th>@relacion.idAlumnoFK</th>
                                  <th></th>
-                                 <th>Acciones</th>
+                                 <th><a href="javascript:void(0)" onclick="ConfirmarSeleccion(@relacion.idFamiliaFK,@relacion.idRelacionAlumnoFamilia)"><img src="~/Scripts/images/select.png" width="20" height="20"/></a></th>
                              </tr>
                          }
                      }

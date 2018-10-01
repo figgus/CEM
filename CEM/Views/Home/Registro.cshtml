@@ -13,6 +13,7 @@
         $("#mensaje").hide();
         $("#btnRegistrar").click(
             function () {
+
                 $.ajax({
                     url: '@Url.Action("CrearUsuarioAutoregistro", "Home")',
                     type: 'POST',
@@ -20,10 +21,11 @@
                     success: function (result) {
                         
                         if (result === 'true') {
-                            window.location.href = "/home/Login";
+                            toastr.success('Postulacion realizada con exito');
+                            setTimeout(function () { $(location).attr('href', '@Url.Action("Login", "Home")'); }, 4000);
                         }
                         else {
-                            $("#msj").show(2000).delay(2000).fadeOut(2000);
+                            toastr.error('alguno de los datos ingresados no son validos');
                         }
                     }
                 }

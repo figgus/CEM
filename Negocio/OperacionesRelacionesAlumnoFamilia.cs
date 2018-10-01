@@ -61,6 +61,16 @@ namespace Negocio
             return false;
         }
 
+
+        public bool ConfirmarSeleccion(int idAlumno, int idFamilia)//cambia el valor del atributo estado a 'aprobado' significa que la famila confirma que hospedara al alumno
+        {
+            bool res = false;
+            string sql = string.Format("begin CONFIRMARSELECCION({0},{1}); end;", idAlumno, idFamilia);
+            ConexionOracle.Ejecutar(sql);
+            res = true;
+            return res;
+        }
+
         public void Dispose()
         {
             Dispose(true);

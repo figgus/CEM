@@ -152,6 +152,26 @@ namespace Negocio
             return usus;
         }
 
+        public bool isCuposDisponibles(int id)
+        {
+            bool res = false;
+            ProgramaEstudios programa = this.TraerPorId(id);
+            int cuposTotales = programa.CUPOS;
+            OperacionesPostulante opostu = new OperacionesPostulante();
+            foreach (Postulante postulante in opostu.TraerTodo())
+            {
+                if (postulante.IDPROGRAMAESTUDIOFK==id)
+                {
+                    cuposTotales--;
+                }
+            }
+            if (cuposTotales>0)
+            {
+                return true;
+            }
+            return res;
+        }
+
         
 
     }

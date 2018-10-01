@@ -329,21 +329,28 @@ namespace CEM.Controllers
         public JsonResult SeleccionPostulante(int idUsuPostu,int idPrograma)
         {
             string res = "false";
-            OperacionesPostulante opostu = new OperacionesPostulante();
-            if (opostu.SeleccionarPostulante(idUsuPostu, idPrograma))
+            if (new OperacionesProgramasEstudios().isCuposDisponibles(idPrograma))
             {
-                new OperacionesNota().InsertarNotasPorDefecto(opostu.Traer(idUsuPostu,idPrograma).IDPOSTULANTE, idPrograma);
-                res = "true";
-                try
+                OperacionesPostulante opostu = new OperacionesPostulante();
+                if (opostu.SeleccionarPostulante(idUsuPostu, idPrograma))
                 {
-                    Usuario usu = new OperacionesUsuarios().Traer(idUsuPostu);
-                    Mailer mailer = new Mailer(usu.Email, "Notificacion de postulacion aceptada", "Felicidades ha sido seleccionado para el programa de estudio al que postulo");
-                    mailer.sendEmail();
-                }
-                catch (Exception)
-                {
+                    new OperacionesNota().InsertarNotasPorDefecto(opostu.Traer(idUsuPostu, idPrograma).IDPOSTULANTE, idPrograma);
+                    res = "true";
+                    try
+                    {
+                        Usuario usu = new OperacionesUsuarios().Traer(idUsuPostu);
+                        Mailer mailer = new Mailer(usu.Email, "Notificacion de postulacion aceptada", "Felicidades ha sido seleccionado para el programa de estudio al que postulo");
+                        mailer.sendEmail();
+                    }
+                    catch (Exception)
+                    {
 
+                    }
                 }
+            }
+            else
+            {
+                res = "No hay cupos disponibles";
             }
             return Json(res);
         }
@@ -381,8 +388,6 @@ namespace CEM.Controllers
             return Json(res);
         }
 
-
-
         [HttpPost]
         public JsonResult SeleccionarFamilia(int idAlumno,int idFamilia)
         {
@@ -401,6 +406,27 @@ namespace CEM.Controllers
                 if (oprel.Insertar(rel)){
                     res = "true";
                 }
+            }
+            catch (Exception e)
+            {
+                res = e.Message;
+            }
+            return Json(res);
+        }
+
+
+        [HttpPost]
+        public JsonResult ConfirmarSeleccion(int idFamilia,int idRelacion)
+        {
+            string res = "false";
+            OperacionesRelacionesAlumnoFamilia oprel = new OperacionesRelacionesAlumnoFamilia();
+            try
+            {
+                if (oprel.ConfirmarSeleccion(idFamilia, idRelacion))
+                {
+                    res = "true";
+                }
+
             }
             catch (Exception e)
             {
