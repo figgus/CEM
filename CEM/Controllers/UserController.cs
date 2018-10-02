@@ -434,5 +434,30 @@ namespace CEM.Controllers
             }
             return Json(res);
         }
+
+
+        [HttpPost]
+        public JsonResult GenerarReporte(int idAlumno,int idPrograma)
+        {
+            string res = "true";
+            try
+            {
+                if (!new OperacionesNota().IsAlumnoAprobado(new OperacionesPostulante().GetIdForUser(idAlumno)))
+                {
+                    throw new Exception("No puede descargar este documento puesto que no a aprobado ningun programa de estudio");
+                }
+                Archivo file = new Archivo();
+                if( file.GenerarCertificado(new OperacionesUsuarios().Traer(idAlumno),new OperacionesProgramasEstudios().TraerNombrePorId(idPrograma), Path.Combine(Server.MapPath("~/Scripts/Documentos/"), "certificado2.docx"), Path.Combine(Server.MapPath("~/Scripts/Documentos/"), "certificadoAlumno")))
+                {
+                    res = "true";
+                }
+
+            }
+            catch (Exception e)
+            {
+                res = e.Message;
+            }
+            return Json(res);
+        }
     }
 }

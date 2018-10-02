@@ -119,5 +119,19 @@ namespace Negocio
             return res;
         }
 
+        public bool IsAlumnoAprobado(int IdAlumno)
+        {
+            float notas = 0;
+            foreach (Nota nota in this.TraeNotasDe(IdAlumno))
+            {
+                notas += nota.calificacion;
+            }
+            if (notas/4>=4)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

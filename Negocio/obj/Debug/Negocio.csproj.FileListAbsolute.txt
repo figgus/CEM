@@ -22,3 +22,9 @@ C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.ca
 C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.dll
 C:\proyecto portafolio\CEM\Negocio\obj\Debug\Negocio.pdb
+C:\proyecto portafolio\CEM\Negocio\bin\Debug\Spire.Doc.dll
+C:\proyecto portafolio\CEM\Negocio\bin\Debug\Spire.License.dll
+C:\proyecto portafolio\CEM\Negocio\bin\Debug\Spire.Pdf.dll
+C:\proyecto portafolio\CEM\Negocio\bin\Debug\Microsoft.mshtml.dll
+C:\proyecto portafolio\CEM\Negocio\bin\Debug\Spire.Doc.xml
+C:\proyecto portafolio\CEM\Negocio\bin\Debug\Spire.License.xml

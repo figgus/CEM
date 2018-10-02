@@ -208,3 +208,9 @@ C:\proyecto portafolio\CEM\CEM\obj\Debug\CEM.csproj.CoreCompileInputs.cache
 C:\proyecto portafolio\CEM\CEM\obj\Debug\CEM.csproj.CopyComplete
 C:\proyecto portafolio\CEM\CEM\obj\Debug\CEM.dll
 C:\proyecto portafolio\CEM\CEM\obj\Debug\CEM.pdb
+C:\proyecto portafolio\CEM\CEM\bin\Spire.Doc.dll
+C:\proyecto portafolio\CEM\CEM\bin\Spire.License.dll
+C:\proyecto portafolio\CEM\CEM\bin\Spire.Pdf.dll
+C:\proyecto portafolio\CEM\CEM\bin\Microsoft.mshtml.dll
+C:\proyecto portafolio\CEM\CEM\bin\Spire.Doc.xml
+C:\proyecto portafolio\CEM\CEM\bin\Spire.License.xml
