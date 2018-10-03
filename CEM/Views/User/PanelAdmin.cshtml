@@ -92,7 +92,32 @@
             }
             );
     }
+
+    function GenerarReporte(idAlumno, idPrograma) {
+    var params = { 'idAlumno': idAlumno, 'idPrograma': idPrograma };
+    $.ajax({
+        url: '@Url.Action("GenerarReporte", "User")',
+        type: 'POST',
+        data: params,
+        success: function (result) {
+            //alert(result);
+            if (result === 'true') {
+                toastr.success('La descarga del certificado comenzara en breve');
+                window.open('http://localhost:64400/Scripts/Documentos/certificadoAlumno.docx');
+            }
+            else {
+                toastr.error(result);
+            }
+        },
+        error: function () {
+            alert('Ajax arroja error');
+        }
+    }
+    );
+}
 </script>
+
+
 
 <center>
     <h2>PanelUsuario</h2>
@@ -103,7 +128,6 @@
         <button class="tablinks" onclick="openCity(event, 'PDE')">Programas de estudios</button>
         <button class="tablinks" onclick="openCity(event, 'Usuarios')">Usuarios</button>
         <button class="tablinks" onclick="openCity(event, 'Calificaciones')">Informacion postulantes</button>
-        <button class="tablinks" onclick="openCity(event, 'Ventas')">Ventas</button>
     </div>
 </center>
 <!-- Tab content -->
@@ -163,7 +187,11 @@
                             if (user.TipoUsuario == 2)
                             {
                                 <a href="@Url.Action("PostularAlumno", "User")?id=@user.IdUsuario"><img src="~/Scripts/images/TomarRamo.png" width="30" height="14" /></a>
+                                <a href="javascript:void(0)" onclick="GenerarReporte(@user.IdUsuario,1)">
+                                    <img src="~/Scripts/images/DescargarPDF.png" width="20" height="20" />
+                                </a>
                             }
+
                         }
 
                     </th>
@@ -295,9 +323,7 @@
         }
         </table>
 </div>
-<div id="Mensajes" class="tabcontent">
-    
-</div>
+
 
 
 

@@ -108,10 +108,9 @@
             success: function (result) {
                 //alert(result);
                 if (result === 'true') {
-                    toastr.success('Solicitud enviada espere confirmacion');
-                   
+                    toastr.success('La descarga del certificado comenzara en breve');
+                    window.open('http://localhost:64400/Scripts/Documentos/certificadoAlumno.pdf');
                 }
-            
                 else {
                     toastr.error(result);
                 }

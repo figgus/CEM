@@ -96,9 +96,20 @@
 <br />
 
 <h2>Postulantes pendientes</h2>
-<a href="@Url.Action("AgregarCentro", "User")">
-    <img src="~/Scripts/images/toggle01.png" /> Agregar nuevo postulante
-</a>
+@{
+    int tipo;
+    if (int.TryParse(Session["tipo"].ToString(), out tipo))
+    {
+        if (tipo == 1)
+        {
+            <a href="@Url.Action("AgregarCentro", "User")">
+                <img src="~/Scripts/images/toggle01.png" /> Agregar nuevo postulante
+            </a>
+        }
+    }
+
+}
+
 <br />
 @{
     int id = int.Parse(Request["id"]);
@@ -161,17 +172,17 @@
 
                         <th>
                             @*@{ if (usu.TipoUsuario == 3)
-                                {
-                                    <a href="javascript:void(0)" onclick="Aprobar(@posts.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
-                                }
-                            }*@
+                                    {
+                                        <a href="javascript:void(0)" onclick="Aprobar(@posts.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
+                                    }
+                                }*@
 
                             <a href="@Url.Action("Calificaciones", "User")?id=@posts.IdUsuario&prog=@nom"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
                         </th>
                     </tr>
-                        
+
                 }
-                }
+            }
         </table>
     }
     else

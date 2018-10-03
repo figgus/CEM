@@ -9,22 +9,16 @@ using Negocio.ClasesModelo;
 
 namespace Negocio
 {
-    public class OperacionesUsuarios
+    public class OperacionesUsuarios:IDisposable
     {
         public Conexion ConexionOracle { get; set; }
+        private bool alreadyDisposed = false;
 
         public OperacionesUsuarios()
         {
             ConexionOracle = new Conexion();
+            Dispose(false);
         }
-
-        //public bool Insertar(Usuario user)
-        //{
-        //    string sql = string.Format("insert into usuario values (AUTOUSUARIO.nextval,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})",
-        //        user.Username, user.Password, user.Pnombre, user.Snombre, user.Appat, user.Apmat, user.Email, user.FonoCelular, user.FonoFijo, user.TipoUsuario, user.AlumnoRegular, user.IdCarrera);
-        //    this.ConexionOracle.Ejecutar(sql);
-        //    return true;
-        //}
 
         public bool Insertar2(Usuario user)
         {
@@ -133,6 +127,24 @@ namespace Negocio
             }
             return res;
 
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposeManagedResourcesAlso)
+        {
+            if (alreadyDisposed) return;
+
+            if (disposeManagedResourcesAlso)
+            {
+            }
+
+
+            alreadyDisposed = true;
         }
     }
 }

@@ -7,7 +7,7 @@
 
 
 
-
+<title>Panel CEM</title>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
 <script src="~/Scripts/js/jsTabs.js"></script>
@@ -16,6 +16,34 @@
         function () {
             $("#msjExito").hide();
             $('#TProgramas').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+
+            $('#TAlumnos').DataTable({
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ Registros",
@@ -66,6 +94,32 @@
             }
             );
     }
+
+
+    function GenerarReporte(idAlumno, idPrograma) {
+    var params = { 'idAlumno': idAlumno, 'idPrograma': idPrograma };
+    $.ajax({
+        url: '@Url.Action("GenerarReporte", "User")',
+        type: 'POST',
+        data: params,
+        success: function (result) {
+            //alert(result);
+            if (result === 'true') {
+                toastr.success('La descarga del certificado comenzara en breve');
+                window.open('http://localhost:64400/Scripts/Documentos/certificadoAlumno.docx');
+            }
+            else {
+                toastr.error(result);
+            }
+        },
+        error: function () {
+            alert('Ajax arroja error');
+        }
+    }
+    );
+}
+
+
 </script>
 
 <center>
@@ -76,7 +130,7 @@
 
     <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'Postulantes')">Programas impartidos</button>
-        <button class="tablinks" onclick="openCity(event, 'reportes')">Reportes</button>
+        <button class="tablinks" onclick="openCity(event, 'reportes')">Certificados</button>
         <button class="tablinks" onclick="openCity(event, 'ayuda')">Ayuda</button>
     </div>
 </center>
@@ -147,7 +201,60 @@
 
 
 <div id="reportes" class="tabcontent">
-    asd
+    @{ 
+        using (Negocio.OperacionesUsuarios opusu = new Negocio.OperacionesUsuarios())
+        {
+            List<Negocio.ClasesModelo.Usuario> listaAlumnos = opusu.TraerTodo().Where(p=>p.TipoUsuario==2).ToList<Negocio.ClasesModelo.Usuario>();
+            if (lista.Count>0)
+            {
+                <table id="TAlumnos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Pasword</th>
+                            <th>Primer nombre</th>
+                            <th>Segundo nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Email</th>
+                            <th>Celular</th>
+                            <th>Fono fijo</th>
+                            <th>tipo usuario</th>
+                            <th>alumno regular</th>
+                            <th>Carrera</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    @{ 
+                        foreach (Negocio.ClasesModelo.Usuario alumno in listaAlumnos)
+                        {
+                    <tr>
+                        <th>@alumno.IdUsuario</th>
+                        <th>@alumno.Username</th>
+                        <th>@alumno.Password</th>
+                        <th>@alumno.Pnombre</th>
+                        <th>@alumno.Snombre</th>
+                        <th>@alumno.Appat</th>
+                        <th>@alumno.Apmat</th>
+                        <th>@alumno.Email</th>
+                        <th>@alumno.FonoCelular</th>
+                        <th>@alumno.FonoFijo</th>
+                        <th>@alumno.TipoUsuario</th>
+                        <th>@alumno.AlumnoRegular</th>
+                        <th>@alumno.IdCarrera</th>
+                        <th> <a href="javascript:void(0)" onclick="GenerarReporte(@alumno.IdUsuario,1)"><img src="~/Scripts/images/DescargarPDF.png" width="20" height="20" /></a> </th>
+                    </tr>
+                        }
+                    }
+                </table>
+            }
+            else
+            {
+                <label>No hay alumnos registrados</label>
+            }
+        }
+    }
 </div>
 
 <div id="ayuda" class="tabcontent">

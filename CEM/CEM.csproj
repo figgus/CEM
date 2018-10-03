@@ -295,6 +295,7 @@
     <Content Include="Scripts\js\course.js" />
     <Content Include="Scripts\js\courses.js" />
     <Content Include="Scripts\js\custom.js" />
+    <Content Include="Scripts\js\GeneraReporte.js" />
     <Content Include="Scripts\js\jquery-3.2.1.min.js" />
     <Content Include="Scripts\js\jsDataTableAdmin.js" />
     <Content Include="Scripts\js\jsTabs.js" />

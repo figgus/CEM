@@ -447,7 +447,7 @@ namespace CEM.Controllers
                     throw new Exception("No puede descargar este documento puesto que no a aprobado ningun programa de estudio");
                 }
                 Archivo file = new Archivo();
-                if( file.GenerarCertificado(new OperacionesUsuarios().Traer(idAlumno),new OperacionesProgramasEstudios().TraerNombrePorId(idPrograma), Path.Combine(Server.MapPath("~/Scripts/Documentos/"), "certificado2.docx"), Path.Combine(Server.MapPath("~/Scripts/Documentos/"), "certificadoAlumno")))
+                if( file.GenerarCertificado(new OperacionesUsuarios().Traer(idAlumno),new OperacionesProgramasEstudios().TraerNombrePorId(idPrograma), Path.Combine(Server.MapPath("~/Scripts/Documentos/"), "certificado2.docx"), Path.Combine(Server.MapPath("~/Scripts/Documentos/"), "certificadoAlumno.pdf")))
                 {
                     res = "true";
                 }

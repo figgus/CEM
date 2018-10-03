@@ -22,7 +22,7 @@ namespace Negocio
                 doc.Replace("[nombre]",string.Format("{0} {1} {2} {3}",usuarioAlumno.Pnombre,usuarioAlumno.Snombre,usuarioAlumno.Appat,usuarioAlumno.Apmat),true,true);
                 doc.Replace("[Carrera]", curso, true, true);
                 doc.Replace("[fecha]", string.Format("{0} de {1} del {2}",DateTime.Now.Day,DateTime.Now.Month,DateTime.Now.Year), true, true);
-                doc.SaveToFile(rutaSalida);
+                doc.SaveToFile(rutaSalida,FileFormat.PDF);
                 return true;
             }
         }
