@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "CargarAntecedente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    $(document).ready(
+        function () {
+            $("#msj").hide();
+            
+        }
+    );
+</script>
+<body>
+    @{ 
+        int val;
+        if (int.TryParse(Request["err"],out val))
+        {
+            <script type="text/javascript">
+                toastr.error('Compruebe que el archivo o el tipo de antecendente ingresado sea valido');
+            </script>
+        }
+    }
+    <div id="msj" class="alert alert-success">
+        Centro registrado con exito
+    </div>
+    <center>
+        <h2>CargarAntecedente</h2>
+        <form id="formulario" action="@Url.Action("SubirAntecedente","User")" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td><input type="file" id="archivo" name="archivo"  value="Subir"/></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Tipo de documento</td>
+                    <td><input class="form-control" type="text" id="tipo" name="tipo" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Guardar" /></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+

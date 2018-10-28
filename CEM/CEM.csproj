@@ -198,6 +198,7 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <Content Include="Scripts\Documentos\certificado2.docx" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\images\about_1.jpg" />
     <Content Include="Scripts\images\about_2.jpg" />

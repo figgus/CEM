@@ -92,7 +92,7 @@ namespace CEM.Controllers
             return View();
         }
 
-        [Authorize(Roles = "cem,admin")]
+        [Authorize(Roles = "cem,admin,cel")]
         public ActionResult VerPostulantes()
         {
             return View();

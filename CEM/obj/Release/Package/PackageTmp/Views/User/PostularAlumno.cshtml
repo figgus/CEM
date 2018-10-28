@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "PostularAlumno";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<title>Postular alumnos</title>
+<script>
+    $(document).ready(
+        function () {
+            $(document).ready(
+                function () {
+                    $('#TPDE').DataTable({
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ Registros",
+                            "sZeroRecords": "&nbsp;",
+                            "sEmptyTable": "&nbsp;",
+                            "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                            "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                            "sInfoFiltered": "",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+                    });
+                }
+            );
+        }
+    );
+
+
+    function MostrarValorSeleccionado() {
+        var chk = 
+        toastr.info(chk);
+    }
+
+    function Postular() {
+        var idUsu=@Request["id"];
+        var idProg = $("input[type='radio'][name='check']:checked").val();
+        //alert(idProg);
+        if (idProg== undefined) {
+            toastr.error('Tiene que seleccionar algun programa de estudios');
+        }
+        else {
+            var params = { 'idAlumno': idUsu, 'idPrograma': idProg };
+         $.ajax({
+                 url: '@Url.Action("PostularAlumno", "User")',
+             type: 'POST',
+             data: params,
+             success: function (result) {
+                 //alert(result);
+                 if (result === 'true') {
+                     toastr.success('Postulacion realizada con exito');
+                     setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
+                 }
+                 else {
+                     toastr.error(result);
+                 }
+             }
+         }
+         );
+        }
+        
+    }
+
+</script>
+
+<center>
+    <h2>Seleccione el curso al que quiere postular al alumno seleccionado</h2>
+    <form id="formulario">
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+
+
+                <td>
+                    <table id="TPDE" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre programa</th>
+                                <th>Descripcion</th>
+                                <th>Cupos</th>
+                                <th>Fecha publicacion</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+
+                        @{
+                            int index = 1;
+                            Negocio.OperacionesProgramasEstudios opprog = new Negocio.OperacionesProgramasEstudios();
+                            List<Negocio.ProgramaEstudios> res = opprog.TraerTodo();
+                            foreach (Negocio.ProgramaEstudios pro in res)
+                            {
+                                bool publish = pro.PUBLICADO == '1';
+                                bool asignado = pro.IDCENTRO != null;
+                                <tr>
+                                    <th>@index</th>
+                                    <th>@pro.NOMBREPROGRAMA</th>
+                                    <th>@pro.DESCRIPCION</th>
+                                    <th>@pro.CUPOS</th>
+                                    <th>@pro.FECHAPUBLICACION </th>
+                                    <th>
+                                        <input type="radio" name="check" id="check" value="@pro.IDPROGRAMAESTUDIO" />
+                                    </th>
+
+                                </tr>
+                                index++;
+                            }
+
+                        }
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    <input type="button" onclick="Postular()" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Postular" />
+</center>

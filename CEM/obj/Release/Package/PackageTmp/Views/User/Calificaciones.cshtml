@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Calificaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $('#TNotas').DataTable({
+                paging: false,
+                bFilter: false,
+                ordering: false,
+                searching: false,
+                info: false,
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+
+            $('#btnCalificar').click(
+                function () {
+                    $.ajax({
+                    url: '@Url.Action("Calificar", "User")',
+                        type: 'POST',
+                        data: $('#formulario').serialize(),
+                    success: function (result) {
+                        //alert(result);
+                        if (result === 'true') {
+                            toastr.success('Notas actualizadas con exito');
+                            //$("#PostuT").load(location.href + " #PostuT>*", "");
+                        }
+
+                        else {
+                            toastr.error(result);
+                        }
+                        },
+                        error: function () {
+                            alert('Ajax arroja error');
+                        }
+                 }
+                 );
+                }
+            );
+        }
+    );
+
+
+</script>
+@{
+    Negocio.ClasesModelo.Usuario usuarioSession = Session["usuario"] as Negocio.ClasesModelo.Usuario;
+    int id = int.Parse(Request["id"]);
+    Negocio.ClasesModelo.Usuario user = new Negocio.OperacionesUsuarios().Traer(id);
+}
+<h2>Notas de @string.Format("{0} {1} {2} {3}", user.Pnombre, user.Snombre, user.Appat, user.Apmat) en @Request["prog"]</h2>
+<form id="formulario">
+    <table id="TNotas">
+        <thead>
+            <tr>
+                <th>1° nota</th>
+                <th>2° nota</th>
+                <th>3° nota</th>
+                <th>4° nota</th>
+            </tr>
+        </thead>
+        <tr>
+            @{
+                Negocio.OperacionesNota opnota = new Negocio.OperacionesNota();
+                int idPostulante = new Negocio.OperacionesPostulante().GetIdForUser(id);
+                List<Negocio.ClasesModelo.Nota> lista = opnota.TraeNotasDe(idPostulante);
+                float nota1 = 0;
+                float nota2 = 0;
+                float nota3 = 0;
+                float nota4 = 0;
+                foreach (Negocio.ClasesModelo.Nota nota in lista)
+                {
+                    switch (nota.numeral)
+                    {
+                        case 1:
+                            nota1 = nota.calificacion;
+                            break;
+                        case 2:
+                            nota2 = nota.calificacion;
+                            break;
+                        case 3:
+                            nota3 = nota.calificacion;
+                            break;
+                        case 4:
+                            nota4 = nota.calificacion;
+                            break;
+
+                    }
+                }
+            }
+            <th><input class="form-control" type="number" step="0.1" id="nota1" name="nota1" value="@nota1.ToString().Replace(",",".")" /></th>
+            <th><input class="form-control" type="number" step="0.1" id="nota2" name="nota2" value="@nota2.ToString().Replace(",",".")" /></th>
+            <th><input class="form-control" type="number" step="0.1" id="nota3" name="nota3" value="@nota3.ToString().Replace(",",".")" /></th>
+            <th>
+                <input class="form-control" type="number" step="0.1" id="nota4" name="nota4" value="@nota4.ToString().Replace(",",".")" />
+                <input type="hidden" id="idPostu" name="idPostu" value="@id" />
+            </th>
+        </tr>
+    </table>
+</form>
+<br />
+@{
+
+    if (usuarioSession.TipoUsuario == 4)
+    {
+        <center>
+            <input class="btn btn-primary" type="button" id="btnCalificar" name="btnCalificar" value="Registrar Notas" />
+        </center>
+    }
+}
+
+

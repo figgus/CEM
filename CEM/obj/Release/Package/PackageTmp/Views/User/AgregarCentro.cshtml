@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "AgregarCentro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<script>
+    $(document).ready(
+        function () {
+            $("#msj").hide();
+            $("#btnGuardar").click(
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("CrearCentro", "User")',
+                        type: 'POST',
+                        data: $("#formulario").serialize(),
+                        success: function (result) {
+                            //alert(result);
+                            if (result === 'true') {
+                                $("#msj").show(2000).delay(2000).fadeOut(2000);
+                                setTimeout(function () { $(location).attr('href', '@Url.Action("PanelAdmin", "User")'); }, 4000);
+                            }
+                            else {
+                                alert('problema');
+                            }
+                        }
+                    }
+                    );
+                }
+
+            );
+        }
+    );
+
+
+    
+</script>
+<body>
+    <div id="msj" class="alert alert-success">
+        Centro registrado con exito
+    </div>
+    <center>
+        <h2>Crear Usuario</h2>
+        <form id="formulario">
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+
+                    <td>nombre del centro de estudios</td>
+                    <td><input class="form-control" type="text" id="nom" name="nom" /></td>
+                </tr>
+                
+                
+               
+
+                
+                
+
+                <tr>
+                    <td></td>
+                    <td><input type="button" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Guardar" /></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+

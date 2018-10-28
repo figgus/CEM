@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "VerAntecedentes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(
+        function () {
+            $("#msj").hide();
+        }
+    );
+</script>
+<body>
+    <div id="msj" class="alert alert-success">
+        Centro registrado con exito
+    </div>
+    <center>
+        <h2>Ver Antecedente</h2>
+       
+        <table>
+
+
+            <tr>
+                @{
+                    Negocio.OperacionesAntecedentes opante = new Negocio.OperacionesAntecedentes();
+                    List<Negocio.ClasesModelo.Antecedente> lista = opante.TraerDe(int.Parse(Request["id"]));//hacer que id sea un parametro post
+                    if (lista.Count > 0)
+                    {
+                    <tr>
+                        <td>Nombre documento</td>
+                        <td>Tipo de documento</td>
+                    </tr>
+                    foreach (Negocio.ClasesModelo.Antecedente ant in lista)
+                    {
+                        <td>@ant.docadjunto</td>
+
+                        <td> @ant.tipoDoc  </td>
+                    }
+                }
+                else
+                {
+                    <label>La familia seleccionada no ha subido documentos al sistema</label>
+                }
+                }
+
+                </tr>
+
+            </table>
+       
+    </center>
+</body>

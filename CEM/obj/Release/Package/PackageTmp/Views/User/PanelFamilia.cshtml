@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "PanelFamilia";
+    Layout = "~/Views/Shared/MasterPageAmplio.cshtml";
+}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
+<script src="~/Scripts/js/jsTabs.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $("#msjExito").hide();
+            $('#TProgramas').DataTable({
+                paging: false,
+                bFilter: false,
+                ordering: false,
+                searching: false,
+                info: false,
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+        }
+    );
+
+    function ConfirmarSeleccion(idFamilia,idRelacion) {
+        var params = { 'idFamilia': idFamilia, 'idRelacion': idRelacion};
+        $.ajax({
+             url: '@Url.Action("ConfirmarSeleccion", "User")',
+            type: 'POST',
+            data: params,
+            success: function (result) {
+                //alert(result);
+                if (result === 'true') {
+                    toastr.success('Se ha confirmado con exito');
+                   
+                }
+            
+                else {
+                    toastr.error(result);
+                }
+            },
+            error: function () {
+                alert('Ajax arroja error');
+            }
+        }
+        );
+    }
+</script>
+<center>
+    <h2>PanelFamilia</h2>
+
+    <p>Seleccione la accion a realizar</p>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Antecedentes')">Subir antecedentes</button>
+        <button class="tablinks" onclick="openCity(event, 'Solicitudes')">Solicitudes recibidas</button>
+    </div>
+</center>
+<!-- Tab content -->
+<div class="alert alert-success" id="msjExito">
+    Usuario eliminado con exito
+</div>
+<div id="Antecedentes" class="tabcontent">
+    <a href="@Url.Action("CargarAntecedente", "User")">Haga click aqui para subir un documento <img src="~/Scripts/images/toggle01.png" /></a> 
+    <table id="TProgramas" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre del documento</th>
+                <th>Tipo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        @{
+            List<Negocio.ClasesModelo.Antecedente> lista = new Negocio.OperacionesAntecedentes().TraerDe(int.Parse(Session["idUsuario"].ToString()));
+
+            foreach (Negocio.ClasesModelo.Antecedente ante in lista)
+            {
+                <tr>
+                    <th>@ante.docadjunto</th>
+                    <th>@ante.tipoDoc</th>
+                    <th></th>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+
+<div id="Solicitudes" class="tabcontent">
+    <h3>Lista de solicitudes de alojamiento para estudiantes</h3>
+    @{ 
+        using (Negocio.OperacionesRelacionesAlumnoFamilia opalf=new Negocio.OperacionesRelacionesAlumnoFamilia())
+        {
+            int idThisUsuario;
+            int.TryParse(Session["idUsuario"].ToString(),out idThisUsuario);
+            var listaSolicitudes = opalf.TraerTodo().Where(p=>p.idAlumnoFK==idThisUsuario);
+            
+            if (listaSolicitudes.ToList<Negocio.ClasesModelo.RelacionAlumnoFamilia>().Count>0)
+            {
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nombre solicitante</th>
+                             <th>Institucion del solicitante</th>
+                             <th>Acciones</th>
+                         </tr>
+                     </thead>
+                     @{
+                         foreach (Negocio.ClasesModelo.RelacionAlumnoFamilia relacion in listaSolicitudes)
+                         {
+                             <tr>
+                                 <th>@relacion.idAlumnoFK</th>
+                                 <th></th>
+                                 <th><a href="javascript:void(0)" onclick="ConfirmarSeleccion(@relacion.idFamiliaFK,@relacion.idRelacionAlumnoFamilia)"><img src="~/Scripts/images/select.png" width="20" height="20"/></a></th>
+                             </tr>
+                         }
+                     }
+                 
+                 </table>
+            }
+            else
+            {
+                <label>No hay solicitudes pendientes</label>
+            }
+        }
+    }
+
+
+</div>

@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "VerPostulantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $('#PostuT').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+            $('#PostuTS').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+        }
+    );
+
+    function Aprobar(id,idProg) {
+        var parms = { 'idUsuPostu': id, 'idPrograma': idProg};
+        $.ajax({
+            url: '@Url.Action("SeleccionPostulante", "User")',
+            type: 'POST',
+            data: parms,
+            success: function (result) {
+                //alert(result);
+                if (result === 'true') {
+                    toastr.success('Postulante seleccionado');
+                    $("#PostuT").load(location.href + " #PostuT>*", "");
+                    $("#PostuTS").load(location.href + " #PostuTS>*", "");
+                }
+
+                else {
+                    toastr.error('Error durante el procesamiento de datos, informe al administrador');
+                }
+            }
+        }
+        );
+    }
+</script>
+
+@{string nom = Request["nom"];}
+<h1>Ver Postulantes a @nom</h1>
+
+
+<br />
+<br />
+<br />
+
+<h2>Postulantes pendientes</h2>
+@{
+    int tipo;
+    if (int.TryParse(Session["tipo"].ToString(), out tipo))
+    {
+        if (tipo == 1)
+        {
+            <a href="@Url.Action("AgregarCentro", "User")">
+                <img src="~/Scripts/images/toggle01.png" /> Agregar nuevo postulante
+            </a>
+        }
+    }
+
+}
+
+<br />
+@{
+    int id = int.Parse(Request["id"]);
+    List<Negocio.ClasesModelo.Usuario> postu = new Negocio.OperacionesProgramasEstudios().TraerAlumnosPostulantes(id);
+    if (postu.Count > 0)
+    {
+        <table id="PostuT">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            @{
+                foreach (Negocio.ClasesModelo.Usuario post in postu)
+                {
+                    <tr>
+                        <th>@string.Format("{0} {1} {2} {3}", post.Pnombre, post.Snombre, post.Appat, post.Apmat)</th>
+                        <th>@post.Email</th>
+                        <th>
+                            <a href="javascript:void(0)" onclick="Aprobar(@post.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
+                        </th>
+                    </tr>
+                }
+            }
+        </table>
+    }
+    else
+    {
+        <label>Este programa no tiene postulantes pendientes</label>
+    }
+
+}
+
+<br />
+<br /><br /><br /><br />
+<h2>Postulantes seleccionados</h2>
+@{
+    List<Negocio.ClasesModelo.Usuario> selecionados = new Negocio.OperacionesProgramasEstudios().TraerAlumnosPostulantesSeleccionados(id);
+    if (selecionados.Count > 0)
+    {
+        <table id="PostuTS">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            @{
+                Negocio.ClasesModelo.Usuario usu = Session["usuario"] as Negocio.ClasesModelo.Usuario;
+                foreach (Negocio.ClasesModelo.Usuario posts in selecionados)
+                {
+
+
+                    <tr>
+                        <th>@string.Format("{0} {1} {2} {3}", posts.Pnombre, posts.Snombre, posts.Appat, posts.Apmat)</th>
+                        <th>@posts.Email</th>
+
+                        <th>
+                            @*@{ if (usu.TipoUsuario == 3)
+                                    {
+                                        <a href="javascript:void(0)" onclick="Aprobar(@posts.IdUsuario,@id)"> <img src="~/Scripts/images/select.png" width="20" height="20" /></a>
+                                    }
+                                }*@
+
+                            <a href="@Url.Action("Calificaciones", "User")?id=@posts.IdUsuario&prog=@nom"><img src="~/Scripts/images/calificar.png" width="20" height="20" alt="hola" /></a>
+                        </th>
+                    </tr>
+
+                }
+            }
+        </table>
+    }
+    else
+    {
+        <label>Este programa no tiene postulantes seleccionados</label>
+    }
+
+}

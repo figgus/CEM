@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bienvendido al registro de alumnos y familias</h2>
+
+<script type="text/javascript">
+    $(document).ready(
+    function () {
+        $("#carrera").hide();
+        $("#mensaje").hide();
+        $("#btnRegistrar").click(
+            function () {
+
+                $.ajax({
+                    url: '@Url.Action("CrearUsuarioAutoregistro", "Home")',
+                    type: 'POST',
+                    data: $("#formulario").serialize(),
+                    success: function (result) {
+                        
+                        if (result === 'true') {
+                            toastr.success('Postulacion realizada con exito');
+                            setTimeout(function () { $(location).attr('href', '@Url.Action("Login", "Home")'); }, 4000);
+                        }
+                        else {
+                            toastr.error('alguno de los datos ingresados no son validos');
+                        }
+                    }
+                }
+                );
+            }
+
+        );
+    }
+    );
+
+    function AlumnoSelected() {
+        if (document.getElementById('tipoUsuario').value == "Alumno") {
+            //alert('entro');
+            $("#carrera").show();
+            // var tipo = getElementById('carrera').show();
+        }
+        else {
+            $("#carrera").hide();
+        }
+    }
+</script>
+<h2>Ingrese sus datos</h2>
+
+<form id="formulario">
+    <input type="text" placeholder="Nombre de usuario" id="nombreUsuario" name="nombreUsuario" class="form-control" />
+    <br />
+
+    <input type="password" placeholder="password" id="password" name="password" class="form-control" />
+    <br />
+
+    <input type="text" placeholder="Primer nombre" id="pnombre" name="pnombre" class="form-control" />
+    <br />
+    <input type="text" placeholder="segundo nombre (opcional)" id="snombre" name="snombre" class="form-control" />
+    <br />
+    <input type="text" placeholder="apellido paterno" id="apat" name="apat" class="form-control" />
+    <br />
+
+    <input type="text" placeholder="apellido materno" id="amat" name="amat" class="form-control" />
+    <br />
+    <input type="text" placeholder="Email" id="mail" name="email" class="form-control" />
+    <br />
+    <input type="text" placeholder="Numero celular" id="fonoCelular" name="fonoCelular" class="form-control" />
+    <br />
+    <select id="Institucion" name="Institucion" class="form-control">
+        <option selected value="22">Seleccione su institucion</option>
+        @{
+            Negocio.OperacionesInstitucion opin = new Negocio.OperacionesInstitucion();
+            List<Negocio.ClasesModelo.Institucion> lista = opin.TraerTodo();
+            foreach (Negocio.ClasesModelo.Institucion insti in lista)
+            {
+                <option value="@insti.idInstitucion">@insti.nomInstitucion</option>
+            }
+        }
+    </select>
+    <br />
+    <input type="text" placeholder="Numero fijo" id="fonoFijo" name="fonoFijo" class="form-control" />
+    <br />
+    <select onchange="AlumnoSelected()" id="tipoUsuario" name="tipoUsuario" class="form-control">
+        <option selected>Seleccione el tipo de usuario</option>
+        <option>Alumno</option>
+        <option>Familia</option>
+    </select>
+
+    <br />
+
+    <select id="carrera" name="carrera" class="form-control">
+        <option value="22">Ninguna</option>
+        @{
+            Negocio.OperacionesCarrera opcar = new Negocio.OperacionesCarrera();
+            List<Negocio.ClasesModelo.Carrera> lista1 = opcar.TraerTodo();
+            foreach (Negocio.ClasesModelo.Carrera car in lista1)
+            {
+                <option value="@car.idCarrera">@car.nombreCarrera</option>
+            }
+        }
+    </select>
+    <br />
+    <center>
+        <input type="button" value="Registrarse" class="btn btn-primary" id="btnRegistrar" />
+    </center>
+</form>
+<div id="mensaje" class="alert alert-danger">
+    uno de los campos ingresados no es valido
+</div>

@@ -103,7 +103,7 @@
             //alert(result);
             if (result === 'true') {
                 toastr.success('La descarga del certificado comenzara en breve');
-                window.open('http://localhost:64400/Scripts/Documentos/certificadoAlumno.docx');
+                window.open('http://localhost:64400/Scripts/Documentos/certificadoAlumno.pdf');
             }
             else {
                 toastr.error(result);
@@ -146,10 +146,7 @@
                 <th>ID</th>
                 <th>Username</th>
                 <th>Pasword</th>
-                <th>Primer nombre</th>
-                <th>Segundo nombre</th>
-                <th>Apellido paterno</th>
-                <th>Apellido materno</th>
+                <th>Nombre completo</th>
                 <th>Email</th>
                 <th>Celular</th>
                 <th>Fono fijo</th>
@@ -170,10 +167,7 @@
                     <th>@user.IdUsuario</th>
                     <th>@user.Username</th>
                     <th>@user.Password</th>
-                    <th>@user.Pnombre</th>
-                    <th>@user.Snombre</th>
-                    <th>@user.Appat</th>
-                    <th>@user.Apmat</th>
+                    <th>@string.Format("{0} {1} {2} {3}",user.Pnombre,user.Snombre,user.Appat,user.Apmat)</th>
                     <th>@user.Email</th>
                     <th>@user.FonoCelular</th>
                     <th>@user.FonoFijo</th>

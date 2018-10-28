@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "PanelCEL";
+    Layout = "~/Views/Shared/MasterPageAmplio.cshtml";
+}
+
+
+
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="~/Scripts/css/estilosTabs.css" rel="stylesheet" />
+<script src="~/Scripts/js/jsTabs.js"></script>
+<script type="text/javascript">
+     $(document).ready(
+        function () {
+            $("#msjExito").hide();
+            $('#TProgramas').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ Registros",
+                    "sZeroRecords": "&nbsp;",
+                    "sEmptyTable": "&nbsp;",
+                    "sInfo": "Encontrados: _TOTAL_ Registros (Mostrando del _START_ al _END_)",
+                    "sInfoEmpty": "* No se han encontrado resultados en la búsqueda",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                aoColumnDefs: [{ 'bSortable': false, 'aTargets': ['no-sortable'] }]
+            });
+        }
+);
+</script>
+
+<center>
+    <h2>PanelCEL</h2>
+
+    <p>Seleccione la accion a realizar</p>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Notas')">Ver notas</button>
+        <button class="tablinks" onclick="openCity(event, 'Programas')">Programas impartidos</button>
+    </div>
+</center>
+<!-- Tab content -->
+<div id="Programas" class="tabcontent">
+
+    <table id="TProgramas" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre del programa</th>
+                <th>Descripcion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        @{
+            Negocio.OperacionesProgramasEstudios oprog = new Negocio.OperacionesProgramasEstudios();
+            List<Negocio.ProgramaEstudios> lista = oprog.TraerTodo();
+            foreach (Negocio.ProgramaEstudios prog in lista) {
+                if (prog.IDCENTRO==new Negocio.OperacionesUsuarios().Traer(int.Parse(Session["idUsuario"].ToString())).IdCarrera  ) {
+                     <tr>
+                         <th>@oprog.TraerNombrePorId(prog.IDPROGRAMAESTUDIO)</th>
+                         <th>@prog.DESCRIPCION</th>
+                         <th>
+                             <form action="@Url.Action("VerPostulantes","User")" method="post">
+                                 <input type="hidden" value="@prog.IDPROGRAMAESTUDIO" id="id" name="id" />
+                                 <input type="hidden" value="@prog.NOMBREPROGRAMA" id="nom" name="nom" />
+                                 <input class="btn btn-link" type="submit" value="Ver Postulantes" />
+                             </form>
+                         </th>
+                     </tr>
+                    }
+                }
+            }
+    </table>
+</div>
+
+
+<div id="Notas" class="tabcontent">
+    <h3>Seleccione alumno para ver sus calificaciones</h3>
+    <form action="@Url.Action("NotasAdmin", "User")" method="post">
+        <select>
+            @{
+                Negocio.OperacionesUsuarios opusu = new Negocio.OperacionesUsuarios();
+                List<Negocio.ClasesModelo.Usuario> listaUsu = opusu.TraerTodo();
+                foreach (Negocio.ClasesModelo.Usuario usu in listaUsu)
+                {
+                    if (usu.TipoUsuario==2 && usu.idInstitucion==opusu.Traer(int.Parse(Session["idUsuario"].ToString())).idInstitucion) {
+                        <option value="@usu.IdUsuario">@string.Format("{0} {1} {2} {3}", usu.Pnombre, usu.Snombre, usu.Appat, usu.Apmat)</option>
+                    }
+                }
+            }
+
+        </select>
+        <input type="submit" value="Ver notas" class=".btn-info"/>
+    </form>
+</div>
