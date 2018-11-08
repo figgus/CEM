@@ -1,0 +1,9 @@
+C:\proyecto portafolio\CEM\Datos\bin\Release\Datos.dll.config
+C:\proyecto portafolio\CEM\Datos\bin\Release\Datos.dll
+C:\proyecto portafolio\CEM\Datos\bin\Release\Datos.pdb
+C:\proyecto portafolio\CEM\Datos\bin\Release\Oracle.ManagedDataAccess.dll
+C:\proyecto portafolio\CEM\Datos\obj\Release\Datos.csprojAssemblyReference.cache
+C:\proyecto portafolio\CEM\Datos\obj\Release\Datos.csproj.CoreCompileInputs.cache
+C:\proyecto portafolio\CEM\Datos\obj\Release\Datos.csproj.CopyComplete
+C:\proyecto portafolio\CEM\Datos\obj\Release\Datos.dll
+C:\proyecto portafolio\CEM\Datos\obj\Release\Datos.pdb

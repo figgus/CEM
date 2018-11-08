@@ -139,8 +139,9 @@ namespace CEM.Controllers
                 user.Email = Request["email"];
                 user.FonoCelular = Request["fonoCelular"];
                 user.FonoFijo = Request["fonoFijo"];
+                user.idInstitucion = int.Parse(Request["idInstitucion"]);
                 string tipo = Request["tipoUsuario"];
-                user.idInstitucion = int.Parse(Request["Institucion"]);
+                //user.idInstitucion = int.Parse(Request["Institucion"]);
                 switch (tipo)
                 {
                     case "Alumno":

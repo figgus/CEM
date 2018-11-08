@@ -184,6 +184,22 @@
                 </tr>
 
                 <tr>
+                    <td>Institucion</td>
+                    <td>
+                    <select id="idInstitucion" name="idInstitucion" class="form-control">
+                     <option selected value="Seleccione una carrera">Seleccione una carrera</option>
+                     @{
+                         Negocio.OperacionesInstitucion opin = new Negocio.OperacionesInstitucion();
+                         List<Negocio.ClasesModelo.Institucion> listaInsti = opin.TraerTodo();
+                         foreach (Negocio.ClasesModelo.Institucion ins in listaInsti)
+                         {
+                             <option value="@ins.idInstitucion">@ins.nomInstitucion</option>
+                         }
+                     }
+                    </select></td>
+                </tr>
+
+                <tr>
                     <td></td>
                     <td><input type="button" class="btn btn-primary" id="btnGuardar" name="btnGuardar" value="Guardar" /></td>
                 </tr>

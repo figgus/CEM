@@ -10,7 +10,7 @@ using Negocio.ClasesModelo;
 
 namespace CEM.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : Controller
     {
         // GET: User
@@ -19,55 +19,55 @@ namespace CEM.Controllers
             return View();
         }
 
-        [Authorize (Roles ="admin")]
+        //[Authorize (Roles ="admin")]
         public ActionResult PanelAdmin()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ActionResult AgregarUsuario()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ActionResult EditarUsuario()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ActionResult AgregarCentro()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin,cem")]
+        //[Authorize(Roles = "admin,cem")]
         public ActionResult AgregarPrograma()
         {
             return View();
         }
 
-        [Authorize(Roles = "alumno")]
+        //[Authorize(Roles = "alumno")]
         public ActionResult PanelAlumno()
         {
             return View();
         }
 
-        [Authorize(Roles = "cel")]
+        //[Authorize(Roles = "cel")]
         public ActionResult PanelCEL()
         {
             return View();
         }
 
-        [Authorize(Roles = "cem")]
+        //[Authorize(Roles = "cem")]
         public ActionResult PanelCEM()
         {
             return View();
         }
 
-        [Authorize(Roles = "familia")]
+        //[Authorize(Roles = "familia")]
         public ActionResult PanelFamilia()
         {
             return View();
@@ -79,38 +79,38 @@ namespace CEM.Controllers
             return View();
         }
 
-        [Authorize(Roles = "familia,admin")]
+        //[Authorize(Roles = "familia,admin")]
         public ActionResult CargarAntecedente()
         {
             return View();
         }
 
 
-        [Authorize(Roles = "admin,alumno,cel,cem")]
+        //[Authorize(Roles = "admin,alumno,cel,cem")]
         public ActionResult VerAntecedentes()
         {
             return View();
         }
 
-        [Authorize(Roles = "cem,admin,cel")]
+        //[Authorize(Roles = "cem,admin,cel")]
         public ActionResult VerPostulantes()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin,alumno,cel,cem")]
+        //[Authorize(Roles = "admin,alumno,cel,cem")]
         public ActionResult Calificaciones()
         {
             return View();
         }
 
-        [Authorize (Roles ="admin,cel")]
+        //[Authorize (Roles ="admin,cel")]
         public ActionResult AsignarCentro()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ActionResult PostularAlumno()
         {
             return View();

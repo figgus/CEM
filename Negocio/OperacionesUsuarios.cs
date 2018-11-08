@@ -24,7 +24,7 @@ namespace Negocio
         {
             bool res = false;
 
-            string sql = "begin USUARIOINSERT('" + user.Username + "','" + user.Password + "','" + user.Pnombre + "','" + user.Snombre + "','" + user.Appat + "','" + user.Apmat + "','" + user.Email + "','" + user.FonoCelular + "','" + user.FonoFijo + "'," + user.TipoUsuario + "," + user.AlumnoRegular + "," + user.IdCarrera + ","+user.idInstitucion+"); end;";
+            string sql = "begin USUARIOINSERT('" + user.Username + "','" + user.Password + "','" + user.Pnombre + "','" + user.Snombre + "','" + user.Appat + "','" + user.Apmat + "','" + user.Email + "','" + user.FonoCelular + "','" + user.FonoFijo + "'," + user.TipoUsuario + "," + user.AlumnoRegular + "," + user.IdCarrera + ",1); end;";
             this.ConexionOracle.Ejecutar(sql);
             res = true;
             return res;
