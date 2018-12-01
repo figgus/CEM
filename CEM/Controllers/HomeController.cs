@@ -50,71 +50,71 @@ namespace CEM.Controllers
 
                     //autentica al usuario y crea su rol
                     FormsAuthentication.SetAuthCookie(user, false);
-                    string identity = string.Empty;
-                    if (usu.TipoUsuario == 1)
-                    {
-                        identity = "admin";
-                        if (!Roles.RoleExists(identity))
-                        {
-                            Roles.CreateRole(identity);
-                        }
-                        if (!Roles.IsUserInRole(user, identity))
-                        {
-                            Roles.AddUserToRole(user, identity);
-                        }
-                    }
-                    else if (usu.TipoUsuario == 2)
-                    {
-                        identity = "alumno";
+                    //string identity = string.Empty;
+                    //if (usu.TipoUsuario == 1)
+                    //{
+                    //    identity = "admin";
+                    //    if (!Roles.RoleExists(identity))
+                    //    {
+                    //        Roles.CreateRole(identity);
+                    //    }
+                    //    if (!Roles.IsUserInRole(user, identity))
+                    //    {
+                    //        Roles.AddUserToRole(user, identity);
+                    //    }
+                    //}
+                    //else if (usu.TipoUsuario == 2)
+                    //{
+                    //    identity = "alumno";
 
-                        if (!Roles.RoleExists(identity))
-                        {
-                            Roles.CreateRole(identity);
-                        }
-                        if (!Roles.IsUserInRole(user, identity))
-                        {
-                            Roles.AddUserToRole(user, identity);
-                        }
-                    }
-                    else if (usu.TipoUsuario == 3)
-                    {
-                        identity = "cem";
+                    //    if (!Roles.RoleExists(identity))
+                    //    {
+                    //        Roles.CreateRole(identity);
+                    //    }
+                    //    if (!Roles.IsUserInRole(user, identity))
+                    //    {
+                    //        Roles.AddUserToRole(user, identity);
+                    //    }
+                    //}
+                    //else if (usu.TipoUsuario == 3)
+                    //{
+                    //    identity = "cem";
 
-                        if (!Roles.RoleExists(identity))
-                        {
-                            Roles.CreateRole(identity);
-                        }
-                        if (!Roles.IsUserInRole(user, identity))
-                        {
-                            Roles.AddUserToRole(user, identity);
-                        }
-                    }
-                    else if (usu.TipoUsuario == 4)
-                    {
-                        identity = "cel";
+                    //    if (!Roles.RoleExists(identity))
+                    //    {
+                    //        Roles.CreateRole(identity);
+                    //    }
+                    //    if (!Roles.IsUserInRole(user, identity))
+                    //    {
+                    //        Roles.AddUserToRole(user, identity);
+                    //    }
+                    //}
+                    //else if (usu.TipoUsuario == 4)
+                    //{
+                    //    identity = "cel";
 
-                        if (!Roles.RoleExists(identity))
-                        {
-                            Roles.CreateRole(identity);
-                        }
-                        if (!Roles.IsUserInRole(user, identity))
-                        {
-                            Roles.AddUserToRole(user, identity);
-                        }
-                    }
-                    else if (usu.TipoUsuario == 5)
-                    {
-                        identity = "familia";
+                    //    if (!Roles.RoleExists(identity))
+                    //    {
+                    //        Roles.CreateRole(identity);
+                    //    }
+                    //    if (!Roles.IsUserInRole(user, identity))
+                    //    {
+                    //        Roles.AddUserToRole(user, identity);
+                    //    }
+                    //}
+                    //else if (usu.TipoUsuario == 5)
+                    //{
+                    //    identity = "familia";
 
-                        if (!Roles.RoleExists(identity))
-                        {
-                            Roles.CreateRole(identity);
-                        }
-                        if (!Roles.IsUserInRole(user, identity))
-                        {
-                            Roles.AddUserToRole(user, identity);
-                        }
-                    }
+                    //    if (!Roles.RoleExists(identity))
+                    //    {
+                    //        Roles.CreateRole(identity);
+                    //    }
+                    //    if (!Roles.IsUserInRole(user, identity))
+                    //    {
+                    //        Roles.AddUserToRole(user, identity);
+                    //    }
+                    //}
                     return "true"+usu.TipoUsuario;
                 }
             }
